@@ -12,7 +12,7 @@ extract($_POST, EXTR_PREFIX_ALL, "p");
 
 // Allgemein benötigte Variablen deklarieren
 $home = "startseite";
-$site = isset($g_site) ? $g_site : $home;
+$site = isset($g_site) && !empty($g_site) ? $g_site : $home;
 
 // Session Variablen abfüllen
 $logged_in = isset($_SESSION["logged_in"]) && $_SESSION["logged_in"];
