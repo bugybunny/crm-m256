@@ -1,5 +1,5 @@
 <?php
-$p_kunden_nr = isset($p_kunden_nr) ? trim($p_kunden_nr) : "";
+$p_kunden_login = isset($p_kunden_login) ? trim($p_kunden_login) : "";
 $p_passwort = isset($p_passwort) ? trim($p_passwort) : "";
 
 //Überprüfung, ob schon eine Benutzer eingeloggt ist
@@ -7,17 +7,17 @@ if($logged_in) {
 	header("Location: ".$_SERVER['PHP_SELF'].'?site='.$home);
 } else {
 	if(isset($p_login)) {
-		if(!empty($p_kunden_nr) && !empty($p_passwort)){
+		if(!empty($p_kunden_login) && !empty($p_passwort)){
 			// LOGIN CHECK DB
 			if(true){
 				// EVTL USER DATEN SPEICHERN
 				$_SESSION["logged_in"] = true;
 				header("Location: ".$_SERVER['PHP_SELF'].'?site='.$home);
 			} else {
-				$meld = "Der angegebene Kunde/Passwort ist ungültig.";
+				$meld = "Der angegebene Login/Passwort ist ungültig.";
 			}
 		} else { 
-			$meld = "Bitte Kundennummer & Passwort eingeben."; 
+			$meld = "Bitte Login & Passwort eingeben."; 
 		}
 	}
 	
@@ -29,22 +29,16 @@ if($logged_in) {
 	    $text .= "</ul></div>";
 	    $output .= $text;
 	} 
-	$output .= "<form name='login' action='".$_SERVER['PHP_SELF']."?site=".$site."' method='post'>";
-	$output .= '<table cellpadding="0" cellspacing="0">
+	$output .= 
+	'<form name="login" action="'.$_SERVER['PHP_SELF'].'?site='.$site.'" method="post">
+		<table>
 			<tr>
-				<td width="110px">Kundennummer:</td>
-				<td><input name="kunden_nr" type="text" size="30" value="'.$p_kunden_nr.'"></td>
+				<td width="80px">Login:</td>
+				<td><input name="kunden_login" type="text" size="30" value="'.$p_kunden_login.'"></td>
 			</tr>
 			<tr>
 				<td>Passwort:</td>
-				<td><input name="passwort" type="password" size="30" ></td>
-			</tr>
-			<input type="hidden" name="login" value="true" />
-			<tr>
-				<td>&nbsp;</td>
-				<td align="right">
-					<input type="submit" name="login" value="Einloggen" />
-				</td>
+				<td><input name="passwort" type="password" size="30" > <input type="submit" name="login" value="Einloggen" /></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -52,7 +46,6 @@ if($logged_in) {
 				</td>
 			</tr>
 		</table>
-	</form>
-</div>';
+	</form>';
 }
 ?>
