@@ -66,6 +66,7 @@ function get_kunde($id) {
         $kunde = mysql_fetch_assoc($result);
         return $kunde;
     }
+    return null;
 }
 
 /**
@@ -79,5 +80,17 @@ function get_status($id) {
         $status = mysql_fetch_assoc($result);
         return $status;
     }
-} 
+    return null;
+}
+
+function get_anfrage($id) {
+	$result = mysql_query("SELECT datum, betreff, problem, mitarbeiter_ref, kunden_ref, status_ref, supportart_ref");
+	
+	if(mysql_num_rows($result)) {
+		$anfrage = mysql_fetch_assoc($result);
+		return $anfrage;
+	}
+	return null;
+	
+}
 ?>
