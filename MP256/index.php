@@ -15,6 +15,7 @@ extract($_POST, EXTR_PREFIX_ALL, "p");
 
 // Allgemein benötigte Variablen deklarieren
 $php_self = $_SERVER['PHP_SELF'];
+$home_path = get_home_path($php_self);
 $home = "startseite";
 $site = isset($g_site) && !empty($g_site) ? $g_site : $home;
 
@@ -34,7 +35,7 @@ $output .= html_header($title);
 $output .= 
 '<div align="center">
 	<div id="content">
-		<div id="logo"></div>
+		<a href="'.$php_self.'"><div id="logo"></div></a>
 		<div id="navigation">';
 			include 'php/module/navigation.php';
 			$output .= 
@@ -51,7 +52,7 @@ $output .=
 		</div>
 	</div>
 </div>
-<input type="hidden" id="home_url" value="/webapps/MP256/" />';
+<input type="hidden" id="home_url" value="'.$home_path.'" />';
 
 // Anzeigen des HTML-Footer
 $output .= html_footer();

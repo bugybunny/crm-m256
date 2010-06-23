@@ -55,17 +55,17 @@ if(empty($warning) && !empty($bestaetigung)){
 		<table>
 			<tr>
 				<td class="left" width="110px">Benutzername:</td>
-				<td><input class="input_field" id="username" name="kunden_login" type="text" value="'.$p_kunden_login.'" size="30" onkeyup="validate(this, \'username\');" /></td>
+				<td><input class="input_field" id="username" name="kunden_login" type="text" value="'.$p_kunden_login.'" size="30" onclick="validate(this, \'username\');" onkeyup="validate(this, \'username\');" /></td>
 				<td><div class="info" id="info_username">'.show_error($warning['kunden_login']).'</div></td>
-			</tr>	
+			</tr>
 			<tr>
 				<td class="left">Neues Passwort:</td>
-				<td><input class="input_field" id="pw1" name="pw_1" type="password" value="'.$p_pw_1.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><input class="input_field" id="pw1" name="pw_1" type="password" value="'.$p_pw_1.'" size="30" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
 				<td><div class="info" id="info_pw1">'.show_error($warning['pw1']).'</div></td>
 			</tr>
 			<tr>
 				<td class="left">Wiederholen:</td>
-				<td><input class="input_field" id="pw2" name="pw_2" type="password" value="'.$p_pw_2.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><input class="input_field" id="pw2" name="pw_2" type="password" value="'.$p_pw_2.'" size="30" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
 				<td><div class="info" id="info_pw2">'.show_error($warning['pw2']).'</div></td>
 			</tr>
 		</table>
@@ -73,30 +73,23 @@ if(empty($warning) && !empty($bestaetigung)){
 		<table>
 			<tr>
 				<td class="left" width="110px">Vorname:</td>
-				<td><input class="input_field" id="vorname" name="vorname" type="text" value="'.$p_vorname.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><input class="input_field" id="vorname" name="vorname" type="text" value="'.$p_vorname.'" size="30" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
 				<td><div class="info" id="info_vorname">'.show_error($warning['vorname']).'</div></td>
 			</tr>
 			<tr>
 				<td class="left">Nachname:</td>
-				<td><input class="input_field" id="nachname" name="nachname" type="text" value="'.$p_nachname.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><input class="input_field" id="nachname" name="nachname" type="text" value="'.$p_nachname.'" size="30" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
 				<td><div class="info" id="info_nachname">'.show_error($warning['nachname']).'</div></td>
 			</tr>
 			<tr>
 				<td class="left">E-Mail Adresse:</td>
-				<td><input class="input_field" id="email" name="email" type="text" value="'.$p_email.'" size="30" onkeyup="validate(this, \'email\');" /></td>
+				<td><input class="input_field" id="email" name="email" type="text" value="'.$p_email.'" size="30" onclick="validate(this, \'email\');" onkeyup="validate(this, \'email\');" /></td>
 				<td><div class="info" id="info_email">'.show_error($warning['email']).'</div></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="Registrieren" name="registrieren" /></td>
 			</tr>
 		</table>
-		<input type="hidden" id="home_url" value="/webapps/MP256/" />
 	</form>';
-}
-
-function show_error($warning) {
-	if(!empty($warning))
-		return '<img src="media/images/nok.png" alt="" border="0" />';
-	return '';
 }
 ?>
