@@ -79,7 +79,7 @@ function get_supportart_dropdown($actual_select) {
  * @return $kunde array gefundener Kunden-Datensatz
  */
 function get_kunde($id) {
-    $result = mysql_query("SELECT login, name, vorname, email, pw, rolle_ref FROM benutzer WHERE benutzer.id = $id") or die (mysql_error());
+    $result = mysql_query("SELECT login, name, vorname, email, pw, rolle_ref FROM benutzer WHERE benutzer.id = $id");
     if(mysql_num_rows($result)) {
         $kunde = mysql_fetch_assoc($result);
         return $kunde;
@@ -93,7 +93,7 @@ function get_kunde($id) {
  * @return $status array gefundener Status-Datensatz
  */
 function get_status($id) {
-    $result = mysql_query("SELECT status FROM status WHERE status.status_id = $id") or die (mysql_error());
+    $result = mysql_query("SELECT status FROM status WHERE status.status_id = $id");
     if(mysql_num_rows($result)) {
         $status = mysql_fetch_assoc($result);
         return $status;
@@ -101,13 +101,12 @@ function get_status($id) {
     return null;
 }
 
-function get_anfrage($id) {
-	$result = mysql_query("SELECT datum, betreff, problem, mitarbeiter_ref, kunden_ref, status_ref, supportart_ref FROM anfrage WHERE anfrage.anfrage_nr = $id") or die (mysql_error());
+function get_anfrage($anfrage_nr) {
+	$result = mysql_query("SELECT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status FROM anfrage a JOIN (benutzer b, `status` s) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref) WHERE a.anfrage_nr = '$$anfrage_nr'");
 	if(mysql_num_rows($result)) {
 		$anfrage = mysql_fetch_assoc($result);
 		return $anfrage;
 	}
 	return null;
-	
 }
 ?>
