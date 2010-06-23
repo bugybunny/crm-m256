@@ -18,6 +18,7 @@ if($logged_in) {
 			$login_array = login($p_kunden_login, $p_passwort);
 			if(!empty($login_array)){
 				$_SESSION["logged_in"] = true;
+				$_SESSION["user_name"] = $p_kunden_login;
 				$_SESSION["user_id"] = $login_array['id'];
 				$_SESSION["user_role"] = $login_array['rolle'];
 				$_SESSION["user_team"] = $login_array['supportart_id'];
