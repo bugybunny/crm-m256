@@ -41,12 +41,12 @@ if($logged_in) {
 	'<form name="login" action="'.$_SERVER['PHP_SELF'].'?site='.$site.'" method="post">
 		<table>
 			<tr>
-				<td width="80px">Benutzername:</td>
+				<td class="left" width="110px">Benutzername:</td>
 				<td><input class="input_field" id="login" name="kunden_login" type="text" size="30" value="'.$p_kunden_login.'" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
 				<td><div class="info" id="info_login">'.show_error($warning['login']).'</div></td>
 			</tr>
 			<tr>
-				<td>Passwort:</td>
+				<td class="left">Passwort:</td>
 				<td><input class="input_field" id="passwort" name="passwort" type="password" size="30" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
 				<td><div class="info" id="info_passwort">'.show_error($warning['passwort']).'</div></td>
 			</tr>
