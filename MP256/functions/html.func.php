@@ -7,6 +7,8 @@ function html_header($title){
 	$output .= "<head>\n";
 	$output .= "<title>{$title}</title>\n";
 	$output .= "<link rel='stylesheet' type='text/css' href='media/style.css' />";
+	$output .= "<script type=\"text/javascript\" src=\"media/javascript/script.js\"></script>";
+	$output .= "<script type=\"text/javascript\" src=\"media/javascript/ajax.js\"></script>";
 	$output .= "</head>\n";
 	$output .= "<body>\n";
 	return $output;
