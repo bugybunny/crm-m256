@@ -56,6 +56,24 @@ function regist($login, $name, $vorname, $email, $pw){
 	return false;
 }
 
+function anfrage_erstellen($datum, $betreff, $problem, $kunden_id, $status, $supportart) {
+	// TODO: DB EINTRAG
+	return true;
+}
+
+function get_supportart_dropdown($actual_select) {
+	$result = mysql_query("SELECT id, supportart FROM supportart");
+	$output = '<select class="input_field" name="supportart">';
+	while ($row = mysql_fetch_array($result)) {
+		if($actual_select == $row['id'])
+			$output .= '<option value="'.$row['id'].'" selected>'.$row['supportart'].'</option>';
+		else
+			$output .= '<option value="'.$row['id'].'">'.$row['supportart'].'</option>';
+	}
+	$output .= '</select>';
+	return $output;
+}
+
 /**
  * @param $id int Kundenid (benutzer.id)
  * @return $kunde array gefundener Kunden-Datensatz
