@@ -1,4 +1,6 @@
 <?php
-$output .= '<h1>Lissste</h1>';
-$output .= get_anfragen_liste();
+require_once '../functions/ajax.func.php';
+
+echo '<h1>Lissste</h1>';
+echo get_anfragen_liste();
 ?>

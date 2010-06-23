@@ -9,9 +9,12 @@ if($logged_in) {
 	if(isset($p_login)) {
 		if(!empty($p_kunden_login) && !empty($p_passwort)){
 			// LOGIN CHECK DB
-			if(true){
-				// EVTL USER DATEN SPEICHERN
+			$login_array = login($p_kunden_login, $p_passwort);
+			if(!empty($login_array)){
 				$_SESSION["logged_in"] = true;
+				$_SESSION["user_id"] = $login_array['id'];
+				$_SESSION["user_role"] = $login_array['rolle'];
+				$_SESSION["user_team"] = $login_array['supportart_id'];
 				header("Location: ".$_SERVER['PHP_SELF'].'?site='.$home);
 			} else {
 				$meld = "Der angegebene Login/Passwort ist ungültig.";

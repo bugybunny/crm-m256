@@ -7,32 +7,35 @@ $p_pw_1 = isset($p_pw_1) ? trim($p_pw_1) : "";
 $p_pw_2 = isset($p_pw_2) ? trim($p_pw_2) : "";
 
 if(isset($p_registrieren)) {
-	if (empty($p_email) || strlen($p_email) <= 0) {
-		$warning[] = "Bitte E-Mail Adresse eingeben";
+	if (!validate("username", $p_kunden_login)) {
+		$warning['kunden_login'] = "Benutzername falsch oder bereits vorhanden";
 	}
-	if (empty($p_pw_1) || strlen($p_pw_1) <= 0) {
-		$warning[] = "Bitte Passwort eingeben";
+	if (!validate("empty", $p_pw_1)) {
+		$warning['pw1'] = "Bitte Passwort eingeben";
 	}
-	if (empty($p_pw_2) || strlen($p_pw_2) <= 0) {
-		$warning[] = "Bitte zweites Passwort eingeben";
+	if (!validate("empty", $p_pw_2)) {
+		$warning['pw2'] = "Bitte zweites Passwort eingeben";
 	}
 	if(!empty($p_pw_1) && !empty($p_pw_2)){
-		if($p_pw_2 != $p_pw_1){
-	  		$warning[] = "Passwörter sind nicht gleich!";
+		if (!validate("compare", $p_pw_1, $p_pw_2)) {
+	  		$warning['pw2'] = "Passwörter sind nicht gleich!";
 		}
 	}
-	if (empty($p_vorname) || strlen($p_vorname) <= 0) {
-		$warning[] = "Bitte Vorname eingeben";
+	if (!validate("empty", $p_vorname)) {
+		$warning['vorname'] = "Bitte Vorname eingeben";
 	}
-	if (empty($p_nachname) || strlen($p_nachname) <= 0) {
-		$warning[] = "Bitte Nachname eingeben";
+	if (!validate("empty", $p_nachname)) {
+		$warning['nachname'] = "Bitte Nachname eingeben";
 	}
-	if (empty($p_kunden_login) || strlen($p_kunden_login) <= 0) {
-		$warning[] = "Bitte Login eingeben";
+	if (!validate("email", $p_email)) {
+		$warning['email'] = "Bitte E-Mail Adresse eingeben";
 	}
 	if(empty($warning)){
-		// BENUTZER REGISTRIEREN (DB)
-		$bestaetigung = "Erfolgreich registriert";
+		if(regist($p_kunden_login, $p_nachname, $p_vorname, $p_email, $p_pw_1)){
+			$bestaetigung = "Der Benutzer '<b>$p_kunden_login</b>' wurde erfolgreich registriert";
+		} else {
+			$bestaetigung = "Der Benutzer '<b>$p_kunden_login</b>'s konnte nicht registriert werden.";
+		}
 	}
 }
 
@@ -52,32 +55,48 @@ if(empty($warning) && !empty($bestaetigung)){
 		<table>
 			<tr>
 				<td class="left" width="110px">Benutzername:</td>
-				<td><input class="input_field" name="kunden_login" type="text" value="'.$p_kunden_login.'" size="30"></td>
+				<td><input class="input_field" id="username" name="kunden_login" type="text" value="'.$p_kunden_login.'" size="30" onkeyup="validate(this, \'username\');" /></td>
+				<td><div class="info" id="info_username">'.show_error($warning['kunden_login']).'</div></td>
 			</tr>	
 			<tr>
 				<td class="left">Neues Passwort:</td>
-				<td><input class="input_field" name="pw_1" type="password" value="'.$p_pw_1.'" size="30" /></td>
+				<td><input class="input_field" id="pw1" name="pw_1" type="password" value="'.$p_pw_1.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><div class="info" id="info_pw1">'.show_error($warning['pw1']).'</div></td>
 			</tr>
 			<tr>
 				<td class="left">Wiederholen:</td>
-				<td><input class="input_field" name="pw_2" type="password" value="'.$p_pw_2.'" size="30" /></td>
+				<td><input class="input_field" id="pw2" name="pw_2" type="password" value="'.$p_pw_2.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><div class="info" id="info_pw2">'.show_error($warning['pw2']).'</div></td>
 			</tr>
 		</table>
 		<br />
 		<table>
 			<tr>
 				<td class="left" width="110px">Vorname:</td>
-				<td><input class="input_field" name="vorname" type="text" value="'.$p_vorname.'" size="30" /></td>
+				<td><input class="input_field" id="vorname" name="vorname" type="text" value="'.$p_vorname.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><div class="info" id="info_vorname">'.show_error($warning['vorname']).'</div></td>
 			</tr>
 			<tr>
 				<td class="left">Nachname:</td>
-				<td><input class="input_field" name="nachname" type="text" value="'.$p_nachname.'" size="30" /></td>
+				<td><input class="input_field" id="nachname" name="nachname" type="text" value="'.$p_nachname.'" size="30" onkeyup="validate(this, \'empty\');" /></td>
+				<td><div class="info" id="info_nachname">'.show_error($warning['nachname']).'</div></td>
 			</tr>
 			<tr>
 				<td class="left">E-Mail Adresse:</td>
-				<td><input class="input_field" name="email" type="text" value="'.$p_email.'" size="30"> <input type="submit" value="Registrieren" name="registrieren" /></td>
+				<td><input class="input_field" id="email" name="email" type="text" value="'.$p_email.'" size="30" onkeyup="validate(this, \'email\');" /></td>
+				<td><div class="info" id="info_email">'.show_error($warning['email']).'</div></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right"><input type="submit" value="Registrieren" name="registrieren" /></td>
 			</tr>
 		</table>
+		<input type="hidden" id="home_url" value="/webapps/MP256/" />
 	</form>';
+}
+
+function show_error($warning) {
+	if(!empty($warning))
+		return '<img src="media/images/nok.png" alt="" border="0" />';
+	return '';
 }
 ?>
