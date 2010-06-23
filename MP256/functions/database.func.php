@@ -61,7 +61,7 @@ function regist($login, $name, $vorname, $email, $pw){
  * @return $kunde array gefundener Kunden-Datensatz
  */
 function get_kunde($id) {
-    $result = mysql_query("SELECT login, name, vorname, email, pw, rolle_ref FROM benutzer WHERE benutzer.id = $id");
+    $result = mysql_query("SELECT login, name, vorname, email, pw, rolle_ref FROM benutzer WHERE benutzer.id = $id") or die (mysql_error());
     if(mysql_num_rows($result)) {
         $kunde = mysql_fetch_assoc($result);
         return $kunde;
@@ -75,7 +75,7 @@ function get_kunde($id) {
  * @return $status array gefundener Status-Datensatz
  */
 function get_status($id) {
-    $result = mysql_query("SELECT status FROM status WHERE status.status_id = $id");
+    $result = mysql_query("SELECT status FROM status WHERE status.status_id = $id") or die (mysql_error());
     if(mysql_num_rows($result)) {
         $status = mysql_fetch_assoc($result);
         return $status;
@@ -84,8 +84,7 @@ function get_status($id) {
 }
 
 function get_anfrage($id) {
-	$result = mysql_query("SELECT datum, betreff, problem, mitarbeiter_ref, kunden_ref, status_ref, supportart_ref");
-	
+	$result = mysql_query("SELECT datum, betreff, problem, mitarbeiter_ref, kunden_ref, status_ref, supportart_ref FROM anfrage WHERE anfrage.anfrage_nr = $id") or die (mysql_error());
 	if(mysql_num_rows($result)) {
 		$anfrage = mysql_fetch_assoc($result);
 		return $anfrage;
