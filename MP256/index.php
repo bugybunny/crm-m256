@@ -1,6 +1,7 @@
 <?php
 // Benötigte Dateien einbinden
 require_once 'functions/check.func.php';
+require_once 'functions/ajax.func.php';
 require_once 'functions/html.func.php';
 
 // Session starten
@@ -28,14 +29,25 @@ $output .= html_header($title);
 
 // Anzeigen des Content-Bereiches (einbinden der Seite)
 $output .= 
-'<div id="content">';
-	if(is_file('php/'.$site.'.php')){
-		include('php/'.$site.'.php');
-	} else {
-		include('php/error.php');
-	}
-$output .= 
-'</div>';
+'<div align="center">
+	<div id="content">
+		<div id="logo"></div>
+		<div id="navigation">';
+			include 'php/module/navigation.php';
+			$output .= 
+		'</div>
+			<div id="text">
+				<div id="site">';
+					if(is_file('php/'.$site.'.php')){
+						include('php/'.$site.'.php');
+					} else {
+						include('php/error.php');
+					}
+			$output .= 
+			'</div>
+		</div>
+	</div>
+</div>';
 
 // Anzeigen des HTML-Footer
 $output .= html_footer();

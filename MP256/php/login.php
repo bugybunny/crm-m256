@@ -34,11 +34,11 @@ if($logged_in) {
 		<table>
 			<tr>
 				<td width="80px">Login:</td>
-				<td><input name="kunden_login" type="text" size="30" value="'.$p_kunden_login.'"></td>
+				<td><input class="input_field" name="kunden_login" type="text" size="30" value="'.$p_kunden_login.'"></td>
 			</tr>
 			<tr>
 				<td>Passwort:</td>
-				<td><input name="passwort" type="password" size="30" > <input type="submit" name="login" value="Einloggen" /></td>
+				<td><input class="input_field" name="passwort" type="password" size="30" > <input type="submit" name="login" value="Einloggen" /></td>
 			</tr>
 			<tr>
 				<td colspan="2">

@@ -51,31 +51,31 @@ if(empty($warning) && !empty($bestaetigung)){
 	'<form name="registrierung" action="'.$_SERVER['PHP_SELF'].'?site='.$site.'" method="post">
 		<table>
 			<tr>
-				<td class="left" width="110px">Login:</td>
-				<td><input name="kunden_login" type="text" value="'.$p_kunden_login.'" size="30"></td>
+				<td class="left" width="110px">Benutzername:</td>
+				<td><input class="input_field" name="kunden_login" type="text" value="'.$p_kunden_login.'" size="30"></td>
 			</tr>	
 			<tr>
 				<td class="left">Neues Passwort:</td>
-				<td><input name="pw_1" type="password" value="'.$p_pw_1.'" size="30" /></td>
+				<td><input class="input_field" name="pw_1" type="password" value="'.$p_pw_1.'" size="30" /></td>
 			</tr>
 			<tr>
-				<td class="left">Neues Passwort:</td>
-				<td><input name="pw_2" type="password" value="'.$p_pw_2.'" size="30" /></td>
+				<td class="left">Wiederholen:</td>
+				<td><input class="input_field" name="pw_2" type="password" value="'.$p_pw_2.'" size="30" /></td>
 			</tr>
 		</table>
 		<br />
 		<table>
 			<tr>
 				<td class="left" width="110px">Vorname:</td>
-				<td><input name="vorname" type="text" value="'.$p_vorname.'" size="30" /></td>
+				<td><input class="input_field" name="vorname" type="text" value="'.$p_vorname.'" size="30" /></td>
 			</tr>
 			<tr>
 				<td class="left">Nachname:</td>
-				<td><input name="nachname" type="text" value="'.$p_nachname.'" size="30" /></td>
+				<td><input class="input_field" name="nachname" type="text" value="'.$p_nachname.'" size="30" /></td>
 			</tr>
 			<tr>
 				<td class="left">E-Mail Adresse:</td>
-				<td><input name="email" type="text" value="'.$p_email.'" size="30"> <input type="submit" value="Registrieren" name="registrieren" /></td>
+				<td><input class="input_field" name="email" type="text" value="'.$p_email.'" size="30"> <input type="submit" value="Registrieren" name="registrieren" /></td>
 			</tr>
 		</table>
 	</form>';

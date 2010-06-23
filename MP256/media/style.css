@@ -1,0 +1,84 @@
+/* --------------------------------------------------------------------------------------------- */
+
+/* Formatierung der Links auf allen Seiten */
+a:link, a:visited, a:active, a:hover {
+	text-decoration: underline;
+	color: #232a2b;
+}
+
+/* Formatierung der Links (aktiv & fokus) auf allen Seiten ohne Outline */
+a:active, a:focus {
+	outline: none;	
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/* Allgemeine Formatierungen und Anzeige der Seiten */
+body {
+	color: #000;
+	background-color: #ffffff;
+	font-family: arial;
+	font-size: 0.8em;
+	background-image: url("images/bg.png");
+	background-repeat: repeat-x;
+	padding: 0;
+	margin: 0;
+}
+
+#content {
+	position: relative;
+	top: 100px;
+	width: 1000px;
+	text-align: left;
+}
+
+#logo {
+	position: absolute;
+	background: url("images/logo.png");
+	width: 250px;
+	height: 110px;
+	top: -110px;
+}
+
+#navigation {
+	position: absolute;
+	top: -75px;
+	left: 280px;
+	color: white;
+}
+
+#navigation a:link, #navigation a:visited, #navigation a:active, #navigation a:hover {
+	color: white;
+	text-decoration: none;
+	padding: 2px 4px 2px 4px;
+}
+
+#text {
+	position: relative;
+	width: 1000px;
+	top: 20px;
+	min-height: 500px;
+	background: url("images/content_bg2.png");
+}
+
+#site {
+	padding-left: 20px;
+	padding-top: 5px;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+#meldung {
+	color: #3D3D3D;
+	border: 1px solid #D9D9D9;
+	background-color: #F5F5F5;
+	padding: 10px 0px 10px 10px;
+	width: 948px;
+	margin-bottom: 10px;
+}
+
+.input_field {
+	color: #3D3D3D;
+	border: 1px solid #B8B8B8;
+	padding: 2px 1px 2px 1px;
+}
