@@ -75,6 +75,9 @@ function get_supportart_dropdown($actual_select) {
 }
 
 /**
+ * Sucht einen Kunden-Datensatz anhand der BenutzerID
+ * Gibt null zurück, wenn keiner gefunden wurde
+ * 
  * @param $id int Kundenid (benutzer.id)
  * @return $kunde array gefundener Kunden-Datensatz
  */
@@ -88,7 +91,9 @@ function get_kunde($id) {
 }
 
 /**
- *
+ * Sucht einen Status-Datensatz anhand der StatusID
+ * Gibt null zurück, wenn keiner gefunden wurde
+ * 
  * @param $id int Statusid (status.status_id)
  * @return $status array gefundener Status-Datensatz
  */
@@ -101,6 +106,13 @@ function get_status($id) {
     return null;
 }
 
+/**
+ * Sucht einen Anfrage-Datensatz anhand der Anfragenummer
+ * Gibt null zurück, wenn keiner gefunden wurde
+ * 
+ * @param $anfrage_nr int Anfragenummer (anfrage.anfrage_nr)
+ * @return $anfrage array gefundener Anfrage-Datensatz
+ */
 function get_anfrage($anfrage_nr) {
 	$result = mysql_query("SELECT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status FROM anfrage a JOIN (benutzer b, `status` s) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref) WHERE a.anfrage_nr = $anfrage_nr");
 	if(mysql_num_rows($result)) {
