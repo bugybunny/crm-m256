@@ -55,4 +55,29 @@ function regist($login, $name, $vorname, $email, $pw){
 		return true;
 	return false;
 }
+
+/**
+ * @param $id int Kundenid (benutzer.id)
+ * @return $kunde array gefundener Kunden-Datensatz
+ */
+function get_kunde($id) {
+    $result = mysql_query("SELECT login, name, vorname, email, pw, rolle_ref FROM benutzer WHERE benutzer.id = $id");
+    if(mysql_num_rows($result)) {
+        $kunde = mysql_fetch_assoc($result);
+        return $kunde;
+    }
+}
+
+/**
+ *
+ * @param $id int Statusid (status.status_id)
+ * @return $status array gefundener Status-Datensatz
+ */
+function get_status($id) {
+    $result = mysql_query("SELECT status FROM status WHERE status.status_id = $id");
+    if(mysql_num_rows($result)) {
+        $status = mysql_fetch_assoc($result);
+        return $status;
+    }
+} 
 ?>
