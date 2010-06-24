@@ -2,13 +2,15 @@
 $output .= '<h1>Liste</h1>';
 $output .= '<table>
 				<tr id="anfragen">
-					<td id="open" style="width:100px;">
+					<td id="open" style="width:35px;" align="center">
 						<b>Open</b>
 					</td>
-					<td id="working" style="width:100px;">
+					<td>|</td>
+					<td id="working" style="width:55px;" align="center">
 						<a href="#" onclick="do_bold(\'working\', 2)">Working</a>
 					</td>
-					<td id="done" style="width:100px;">
+					<td>|</td>
+					<td id="done" style="width:30px;" align="center">
 						<a href="#" onclick="do_bold(\'done\', 3)">Done</a>
 					</td>
 				</tr>

@@ -10,7 +10,7 @@ if($logged_in) {
 		$output .= get_link("Meine Anfragen", $php_self.'?site=user_anfragen').' | ';
 	}
 	$output .= get_link("Suchen", $php_self.'?site=suchen');
-	$output .= ' | '.get_link("Eingeloggt als '<b>".$_SESSION['user_name']."</b>'", $php_self.'?site=einstellungen');
+	$output .= ' | '.get_link("Eingeloggt als <i>".($is_mitarbeiter ? "Supporter" : "Kunde")."</i> '<b>".$_SESSION['user_name']."</b>'", $php_self.'?site=einstellungen');
 	$output .= ' | '.get_link("Logout", $php_self.'?site=logout');
 } else {
 	$output .= get_link("Login", $php_self.'?site=login');

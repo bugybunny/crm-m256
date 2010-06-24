@@ -14,7 +14,7 @@ if(!empty($anfrage)) {
 		</tr>
 		<tr>
 			<td class="left">Kunde:</td>
-			<td>'.$anfrage['vorname'].' '.$anfrage['name'].'</td>
+			<td>'.$anfrage['kunde'].'</td>
 		</tr>
 	</table>
 	<br/>
@@ -40,6 +40,10 @@ if(!empty($anfrage)) {
 			<tr>
 				<td class="left" width="110px">Datum:</td>
 				<td>'.convert_date($antwort['datum'], "d.m.Y - H:i").'</td>
+			</tr>
+			<tr>
+				<td class="left">Supporter:</td>
+				<td>'.$anfrage['supporter'].'</td>
 			</tr>
 			<tr>
 				<td class="left">Antwort:</td>

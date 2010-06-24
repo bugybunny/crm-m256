@@ -2,7 +2,7 @@
 
 /* Formatierung der Links auf allen Seiten */
 a:link, a:visited, a:active, a:hover {
-	text-decoration: underline;
+	text-decoration: none;
 	color: #232a2b;
 }
 
@@ -97,4 +97,27 @@ body {
 .left {
 	color: #595959;
 	font-weight: bold;
+}
+
+#tabelle {
+	padding-top: 10px;
+}
+
+#tabelle th {
+	border-bottom: 1px solid #828282;
+	padding: 3px 20px 3px 5px;
+	background-color: #C9C9C9;
+}
+
+#tabelle tr:nth-of-type(odd) {
+	background-color: #DEDEDE;
+}
+
+#tabelle tr:nth-of-type(even) {
+	background-color: #E8E8E8;
+}
+
+#tabelle td {
+	border-bottom: 1px solid #A3A3A3;
+	padding: 3px 20px 3px 5px;
 }
