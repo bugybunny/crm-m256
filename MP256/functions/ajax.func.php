@@ -146,32 +146,8 @@ function keine_anfragen_meldung() {
 	return '<div id="meldung" style="margin-top: 10px">Keine Anfragen vorhanden</div>';
 }
 
-function get_anfrageliste ($searchtype, $value) {
-	$datum = null;
-	$betreff = null;
-	$problem = null;
-	$status = null;
-	$supportart = null;
-
-	switch($searchtype) {
-		case "datum":
-			$datum = $value;
-			break;
-		case "betreff":
-			$betreff = $value;
-			break;
-		case "problem":
-			$problem = $value;
-			break;
-		case "status":
-			$status = $value;
-			break;	
-		case "betreff":
-			$supportart = $value;
-			break;
-	}
-	
-	$anfragen = get_anfrageliste_auswertung($datum, $betreff, $problem, $status, $supportart);
+function get_anfrageliste ($betreff, $kunde, $supporter, $supportart, $status) {
+	$anfragen = get_anfrageliste_auswertung($betreff, $kunde, $supporter, $supportart, $status);
 	$first = true;
 	foreach($anfragen as $anfrage) {
 		if(!$first)
@@ -185,7 +161,7 @@ function get_anfrageliste ($searchtype, $value) {
 					</tr>";
 		$first = false;
 	}
-	$result .= "<tr><input type='button' value='Druckansicht' onclick=page.php?array=serialize($array)";
+	// TODO $result .= "<tr><input type='button' value='Druckansicht' onclick=page.php?array=serialize($array)";
 	
 	return $result;
 }

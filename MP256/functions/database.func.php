@@ -140,7 +140,7 @@ function get_supportart_dropdown($actual_select) {
 function get_supportart_dropdown2($onchange = null, $actual_select = 0) {
 	$sql = "SELECT id, supportart FROM supportart";
 	$return = mysql_query($sql);
-	$output = '<select class="input_field" name="supportart"';
+	$output = '<select class="input_field" id="suche_supportart" name="supportart"';
 	if($onchange != null) {
 		$output .= ' onchange="'.$onchange.'"';
 	}
@@ -170,7 +170,7 @@ function get_supportart_dropdown2($onchange = null, $actual_select = 0) {
 function get_status_dropdown($onchange = null, $actual_select = 0) {
 	$sql = "SELECT status_id, status FROM status";
 	$return = mysql_query($sql);
-	$output = '<select class="input_field" name="status"';
+	$output = '<select class="input_field" id="suche_status" name="status"';
 	if($onchange != null) {
 		$output .= ' onchange="'.$onchange.'"';
 	}
@@ -346,22 +346,26 @@ function get_anfragenliste_support($benutzer_id, $status) {
 	return $array;
 }
 
-// TODO kundenname suche
-function get_anfrageliste_auswertung ($datum = null, $betreff = null, $problem = null, $status = null, $supportart = null) {
+// TODO kundenname, supporternamen suche
+function get_anfrageliste_auswertung ($betreff = null, $kunde = null, $supporter = null, $supportart = null, $status = null) {
 	$anfragen = array();
 
-	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, a.status_ref, a.supportart_ref, s.status, sa.supportart FROM anfrage a JOIN (`status` s, supportart sa) ON (s.status_id = a.status_ref AND sa.id = a.supportart_ref) WHERE TRUE ";
-	if($datum != null) {
-		$sql .= " AND a.datum LIKE '$datum%' ";
-	} elseif($betreff != null) {
+	$sql = "SELECT a.anfrage_nr, a.betreff, a.problem, a.status_ref, a.supportart_ref, s.status, sa.supportart FROM anfrage a JOIN (`status` s, supportart sa) ON (s.status_id = a.status_ref AND sa.id = a.supportart_ref) WHERE TRUE ";
+	if(!empty($betreff)) {
 		$sql .= " AND a.betreff LIKE '$betreff%' ";
-	} elseif($problem != null) {
-		$sql .= " AND a.problem LIKE '$problem%' ";
-	} elseif($status != null) {
-		$sql .= " AND s.status LIKE '$status%' ";
-	} elseif($supportart != null) {
-		$sql .= " AND sa.supportart LIKE '$supportart%' ";
 	}
+	if(!empty($kunde)) {
+		$sql .= " AND a.problem LIKE '$problem%' ";
+	}
+	if(!empty($supporter)) {
+		$sql .= " AND a.problem LIKE '$problem%' ";
+	}
+	if(!empty($supportart)) {
+		$sql .= " AND a.supportart_ref = $supportart ";
+	}
+	if(!empty($status)) {
+		$sql .= " AND a.status_ref = $status ";
+	} 
 	$result = mysql_query($sql);
 	if(mysql_num_rows($result)) {
 		while($anfrage = mysql_fetch_assoc($result)) {

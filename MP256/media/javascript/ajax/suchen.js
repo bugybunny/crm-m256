@@ -32,7 +32,12 @@ function search(searchtype, searchvalue) {
 	
 	
 	var home_url = document.getElementById('home_url').value;
-	var url = home_url + 'php/ajax/suchen.php?searchtype=' + searchtype + '&value=' + searchvalue;
+	var betreff = document.getElementById('suche_betreff').value;
+	var kunde = document.getElementById('suche_kunde').value;
+	var supporter = document.getElementById('suche_supporter').value;
+	var supportart = document.getElementById('suche_supportart').value;
+	var status = document.getElementById('suche_status').value;
+	var url = home_url + 'php/ajax/suchen.php?betreff=' + betreff + '&kunde=' + kunde + '&supporter=' + supporter + '&supportart=' + supportart + '&status=' + status;
 	req.open("GET", url, true);
 	//Beim abschliessen des request wird diese Funktion ausgeführt
 	req.onreadystatechange = handleSearch;
