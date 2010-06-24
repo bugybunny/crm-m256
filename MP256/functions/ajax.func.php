@@ -16,7 +16,7 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 			<th>Kunde</th>';
 	}
 	$result .=
-			'<th>Betreff</th>
+			'<th colspan="2">Betreff</th>
 		</tr>';
 	// ABFÜLLEN DER DATEN
 
@@ -35,7 +35,11 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 		$result .=
 			'<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'">'.($anfragen[$i]['betreff']).'</a></td>';
 			if($status_id == 1){
-				$result .= '<td><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt=""></img></a></td>';
+				$result .= '<td align="right"><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt=""></img></a></td>';
+			} elseif($status_id == 2) {
+				$result .= '<td align="right" width="20px"><img src="media/images/working.png" border=0 alt="" /></td>';
+			} elseif($status_id == 3) {
+				$result .= '<td align="right" width="20px"><img src="media/images/done.png" border=0 alt="" /></td>';
 			}
 		$result .=
 		'</tr>';
@@ -63,7 +67,7 @@ function get_user_anfragen($user_id, $status_id = 1){
 			'<th width="200px">Supportart</th>';
 	}
 	$result .=
-			'<th>Betreff</th>
+			'<th colspan="2">Betreff</th>
 		</tr>';
 	// ABFÜLLEN DER DATEN
 
@@ -78,9 +82,11 @@ function get_user_anfragen($user_id, $status_id = 1){
 		$result .=
 			'<td>'.($anfragen[$i]['mitarbeiter']).'</td>';
 		}
-		$result .=
-			'<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['betreff']).'</a></td>
-		</tr>';
+		$result .= '<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['betreff']).'</a></td>';
+		
+		$image = $status_id == 1 ? "open.png" : ($status_id == 2 ? "working.png" : "done.png");
+		$result .= '<td align="right" width="20px"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'"><img src="media/images/'.$image.'" border=0 alt="" /></a></td>';
+		$result .= '</tr>';
 	}
 	if(count($anfragen) == 0){
 		$result = keine_anfragen_meldung();
@@ -91,6 +97,7 @@ function get_user_anfragen($user_id, $status_id = 1){
 }
 
 function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
+	GLOBAL $php_self;
 	// DB ANFRAGE FÜR LISTE
 	$result =
 	'<table id="tabelle" cellpadding="0" cellspacing="0" width="960px">
@@ -101,11 +108,10 @@ function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 			'<th width="200px">Supportart</th>
 			<th>Kunde</th>';
 	}	else {
-		$result .=
-			'<th width="200px">Supportart</th>';
+		$result .= '<th width="200px">Supportart</th>';
 	}
 	$result .=
-			'<th>Betreff</th>
+			'<th '.($status_id == 2 || $status_id == 3 ? "colspan=\"2\"" : "").'>Betreff</th>
 		</tr>';
 	// ABFÜLLEN DER DATEN
 
@@ -120,9 +126,13 @@ function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 		$result .=
 			'<td>'.($anfragen[$i]['kunde']).'</td>';
 		}
-		$result .=
-			'<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['betreff']).'</a></td>
-		</tr>';
+		$result .= '<td><a href="'.$php_self.'?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['betreff']).'</a></td>';
+		if($status_id == 2){
+			$result .= '<td align="right" width="20px"><a href="'.$php_self.'?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'"><img src="media/images/reply.png" border=0 alt="" /></a></td>';
+		} elseif($status_id == 3) {
+			$result .= '<td align="right" width="20px"><img src="media/images/done.png" border=0 alt="" /></td>';
+		}
+		$result .= '</tr>';
 	}
 	if(count($anfragen) == 0){
 		$result = keine_anfragen_meldung();
