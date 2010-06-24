@@ -58,7 +58,7 @@ body {
 	width: 1000px;
 	top: 20px;
 	min-height: 500px;
-	background: url("images/content_bg2.png");
+	background: url("images/content_bg2.png") no-repeat;
 }
 
 #site {
@@ -100,13 +100,13 @@ body {
 }
 
 #tabelle {
-	padding-top: 10px;
+	padding: 10px 0 10px 0;
 }
 
 #tabelle th {
-	border-bottom: 1px solid #828282;
+	border-bottom: 1px solid #969696;
 	padding: 3px 20px 3px 5px;
-	background-color: #C9C9C9;
+	background-color: #CCCCCC;
 }
 
 #tabelle tr:nth-of-type(odd) {
@@ -114,10 +114,10 @@ body {
 }
 
 #tabelle tr:nth-of-type(even) {
-	background-color: #E8E8E8;
+	background-color: #EBEBEB;
 }
 
 #tabelle td {
-	border-bottom: 1px solid #A3A3A3;
-	padding: 3px 20px 3px 5px;
+	border-bottom: 1px solid #BFBFBF;
+	padding: 5px 20px 5px 5px;
 }

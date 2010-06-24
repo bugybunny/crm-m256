@@ -15,12 +15,12 @@ if(isset($p_erstellen)) {
 	if(empty($warning)){
 		$datum = date("Y-m-d H:i:s");
 		$kunden_id = $_SESSION['user_id'];
-		if(anfrage_erstellen($datum, $p_betreff, $p_problem, $kunden_id, 1, $p_supportart)){
+		if(anfrage_erstellen($datum, uml_replace($p_betreff), uml_replace($p_problem), $kunden_id, 1, $p_supportart)){
 			$bestaetigung = "Die Anfrage wurde erfolgreich erstellt";
 		} else {
-			$bestaetigung = "Die Anfrage konnte nicht erstellt werden";
+			$bestaetigung = "Die Anfrage konnte <b>nicht</b> erstellt werden";
 		}
-		$bestaetigung .= "<br/><br/><a href='".$php_self."?site=".$site."'>Neue Anfrage erstellen</a>";
+		$bestaetigung .= "<br/><br/><u><a href='".$php_self."?site=".$site."'>Neue Anfrage erstellen</a></u>";
 	}
 }
 

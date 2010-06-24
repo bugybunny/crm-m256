@@ -14,6 +14,7 @@ if($logged_in) {
 	$output .= ' | '.get_link("Logout", $php_self.'?site=logout');
 } else {
 	$output .= get_link("Login", $php_self.'?site=login');
+	$output .= ' | '.get_link("Registration", $php_self.'?site=registrieren');
 }
 
 function get_link($text, $url) {

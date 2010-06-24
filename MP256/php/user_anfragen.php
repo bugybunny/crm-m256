@@ -1,4 +1,6 @@
 <?php
+check_kunde();
+
 $output .= '<h1>Liste</h1>';
 $output .= '<table>
 				<tr id="anfragen">

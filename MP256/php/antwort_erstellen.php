@@ -11,9 +11,9 @@ if(isset($p_antworten)) {
 	}
 	if(empty($warning)){
 		$datum = date("Y-m-d H:i:s");
-		if(antwort_erstellen($datum, $p_antwort, $anfrage_id)){
+		if(antwort_erstellen($datum, uml_replace($p_antwort), $anfrage_id)){
 			$bestaetigung = "Die Antwort wurde erfolgreich erstellt";
-			$bestaetigung .= "<br/><br/><a href='".$php_self."?site=anfrage&id=".$anfrage_id."'>Zur Anfrage</a>";
+			$bestaetigung .= "<br/><br/><u><a href='".$php_self."?site=anfrage&id=".$anfrage_id."'>Zur Anfrage</a></u>";
 		} else {
 			$bestaetigung = "Die Antwort konnte nicht erstellt werden";
 		}

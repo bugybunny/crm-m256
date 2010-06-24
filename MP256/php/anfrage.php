@@ -21,7 +21,7 @@ if(!empty($anfrage)) {
 	<table>
 		<tr>
 			<td class="left" width="110px">Status:</td>
-			<td>'.$anfrage['status'].'</td>
+			<td><b>'.$anfrage['status'].'</b></td>
 		</tr>
 		<tr>
 			<td class="left">Supportart:</td>
@@ -51,8 +51,8 @@ if(!empty($anfrage)) {
 			</tr>
 		</table>';
 	} else {
-		if($is_mitarbeiter)
-			$output .= '<a href="'.$php_self.'?site=antwort_erstellen&id='.$anfrage_id.'">Antworten</a>';
+		if(is_anfrage_supporter($_SESSION["user_id"], $anfrage_id))
+			$output .= '<u><a href="'.$php_self.'?site=antwort_erstellen&id='.$anfrage_id.'">Antworten</a></u>';
 		else
 			$output .= 'Es ist noch keine Antwort vorhanden';
 	}

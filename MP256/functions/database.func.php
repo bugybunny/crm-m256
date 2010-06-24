@@ -58,7 +58,9 @@ function regist($username, $name, $vorname, $email, $pw){
     return false;
 }
 
-function anfrage_erstellen($datum, $betreff, $problem, $kunden_id, $status, $supportart){
+function anfrage_erstellen($datum, $betreff, $problem, $kunden_id, $status, $supportart) {
+	$betreff = mysql_escape_string($betreff);
+	$problem = mysql_escape_string($problem);
     $sql = "INSERT INTO anfrage (datum, betreff, problem, kunden_ref, status_ref, supportart_ref)
             	VALUES('".$datum."', '".$betreff."', '".$problem."', ".$kunden_id.", ".$status.", ".$supportart.");";
     mysql_query($sql);
@@ -113,6 +115,16 @@ function get_status($id) {
     return null;
 }
 
+function is_anfrage_supporter($user_id, $anfrage_id){
+    $sql = "SELECT * FROM anfrage WHERE anfrage_nr = '".$anfrage_id."' AND mitarbeiter_ref='".$user_id."';";
+    $return = mysql_query($sql);
+    if(empty($return)) return false;
+    $row = mysql_fetch_assoc($return);
+    if ($row >= 1)
+        return true;
+    return false;
+}
+
 function get_anfrage($anfrage_nr) {
     GLOBAL $is_mitarbeiter;
     if($is_mitarbeiter){
@@ -136,7 +148,7 @@ function get_anfrage_kunde($anfrage_nr){
 function get_anfrage_mitarbeiter($anfrage_nr){
     $sql = "SELECT DISTINCT a.datum, a.betreff, a.problem, CONCAT(b.vorname, ' ', b.name) as kunde, s.status, sa.supportart
                 FROM anfrage a JOIN (benutzer b, `status` s, supportart sa, benutzer_supportart b_sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref AND b_sa.supportart_id = a.supportart_ref)
-                WHERE a.anfrage_nr = ".$anfrage_nr." AND (b_sa.benutzer_id = a.mitarbeiter_ref)";
+                WHERE a.anfrage_nr = ".$anfrage_nr." AND (b_sa.benutzer_id = ".$_SESSION['user_id'].")";
     $return = mysql_query($sql);
     if(mysql_num_rows($return)) {
         $anfrage = mysql_fetch_assoc($return);
@@ -295,7 +307,7 @@ function antwort_erstellen($datum, $antwort, $anfrage_nr){
 }
 
 function get_antwort($anfrage_nr){
-    $sql = "SELECT a.datum, a.antwort, CONCAT(b.vorname, ' ', b.name) as supporter FROM antwort a, anfrage an, benutzer b WHERE a.anfrage_ref = ".$anfrage_nr." AND an.anfrage_nr=a.anfrage_ref AND b.id=an.kunden_ref;";
+    $sql = "SELECT a.datum, a.antwort, CONCAT(b.vorname, ' ', b.name) as supporter FROM antwort a, anfrage an, benutzer b WHERE a.anfrage_ref = ".$anfrage_nr." AND an.anfrage_nr=a.anfrage_ref AND b.id=an.mitarbeiter_ref;";
     $return = mysql_query($sql);
     if(mysql_num_rows($return)) {
         $antwort = mysql_fetch_assoc($return);

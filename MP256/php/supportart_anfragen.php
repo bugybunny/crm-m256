@@ -1,4 +1,6 @@
 <?php
+check_mitarbeiter();
+
 $output .= '<h1>Liste</h1>';
 $output .= '<table>
 				<tr id="anfragen">
