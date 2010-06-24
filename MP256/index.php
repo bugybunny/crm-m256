@@ -52,7 +52,8 @@ $output .=
 		</div>
 	</div>
 </div>
-<input type="hidden" id="home_url" value="'.$home_path.'" />';
+<input type="hidden" id="home_url" value="'.$home_path.'" />
+<input type="hidden" id="user_id" value="'.$_SESSION['user_id'].'" />';
 
 // Anzeigen des HTML-Footer
 $output .= html_footer();
