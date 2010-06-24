@@ -110,7 +110,7 @@ function get_status($id) {
 }
 
 function get_anfrage($anfrage_nr) {
-	$result = mysql_query("SELECT DISTINCT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status, sa.supportart FROM anfrage a JOIN (benutzer b, `status` s, supportart sa, benutzer_supportart b_sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref AND b_sa.supportart_id = a.supportart_ref) WHERE a.anfrage_nr = $anfrage_nr AND (a.mitarbeiter_ref = $_SESSION[user_id] OR a.kunden_ref = $_SESSION[user_id] OR b_sa.benutzer_id = a.mitarbeiter_ref)")
+	$result = mysql_query("SELECT DISTINCT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status, sa.supportart FROM anfrage a JOIN (benutzer b, `status` s, supportart sa, benutzer_supportart b_sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref AND b_sa.supportart_id = a.supportart_ref) WHERE a.anfrage_nr = $anfrage_nr AND (a.mitarbeiter_ref = $_SESSION[user_id] OR a.kunden_ref = $_SESSION[user_id] OR b_sa.benutzer_id = a.mitarbeiter_ref)");
 	if(mysql_num_rows($result)) {
 		$anfrage = mysql_fetch_assoc($result);
 		return $anfrage;
