@@ -7,7 +7,7 @@ function handleSearch() {
 			alert("Fehler:" + req.status);
 		} else {
 			//Antwort des Servers
-			document.getElementById("auswertung").innerHTML = req.responseText;
+			document.getElementById("auswertung_resultat").innerHTML = req.responseText;
 		}
 		break;
 	}
