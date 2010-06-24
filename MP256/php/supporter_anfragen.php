@@ -3,10 +3,10 @@ $output .= '<h1>Liste</h1>';
 $output .= '<table>
 				<tr id="anfragen">
 					<td id="working" style="width:100px;">
-						<a href="#" onclick="do_bold(this, 2)">Working</a>
+						<b>Working</b>
 					</td>
 					<td id="done" style="width:100px;">
-						<a href="#" onclick="do_bold(this, 3)">Done</a>
+						<a href="#" onclick="do_bold(\'done\', 3)">Done</a>
 					</td>
 				</tr>
 			</table>';

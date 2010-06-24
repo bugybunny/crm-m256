@@ -3,7 +3,7 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 	// DB ANFRAGE FÜR LISTE
 	$result =
 	'<table>
-		<tr style="border-bottom: 2px solid black;">
+		<tr>
 			<th style="width:20px;">Nr.</th>';
 	if($status_id != 1){
 		$result .=
@@ -24,24 +24,28 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 
 	for($i = 0; $i < count($anfragen); $i++){
 		$result .=
-		'<tr style="border-bottom: 1px solid black;">
+		'<tr>
 			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'">'.($anfragen[$i]['anfrage']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>
 			<td>'.($anfragen[$i]['kunde']).'</td>';
 		if($status_id != 1){
-		$result .=
+			$result .=
 			'<td>'.($anfragen[$i]['supporter']).'</td>';
 		}
 		$result .=
 			'<td>'.($anfragen[$i]['betreff']).'</td>';
-			if($status_id == 1){
-				$result .= '<td><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt=""></img></a></td>';
-			}
+		if($status_id == 1){
+			$result .= '<td><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt=""></img></a></td>';
+		}
 		$result .=
 		'</tr>';
 	}
-	
-	$result .= '</table>';
+
+	if(count($anfragen) == 0){
+		$result = "Keine Daten vorhanden!";
+	} else {
+		$result .= '</table>';
+	}
 	return $result;
 }
 
@@ -72,15 +76,19 @@ function get_user_anfragen($user_id, $status_id = 1){
 			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>';
 		if($status_id != 1){
-		$result .=
+			$result .=
 			'<td>'.($anfragen[$i]['mitarbeiter']).'</td>';
 		}
 		$result .=
 			'<td>'.($anfragen[$i]['betreff']).'</td>
 		</tr>';
 	}
-	
-	$result .= '</table>';
+
+	if(count($anfragen) == 0){
+		$result = "Keine Daten vorhanden!";
+	} else {
+		$result .= '</table>';
+	}
 	return $result;
 }
 
@@ -111,15 +119,19 @@ function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>';
 		if($status_id != 1){
-		$result .=
+			$result .=
 			'<td>'.($anfragen[$i]['kunde']).'</td>';
 		}
 		$result .=
 			'<td>'.($anfragen[$i]['betreff']).'</td>
 		</tr>';
 	}
-	
-	$result .= '</table>';
+
+	if(count($anfragen) == 0){
+		$result = "Keine Daten vorhanden!";
+	} else {
+		$result .= '</table>';
+	}
 	return $result;
 }
 ?>
