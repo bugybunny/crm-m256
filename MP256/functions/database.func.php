@@ -346,7 +346,6 @@ function get_anfragenliste_support($benutzer_id, $status) {
 	return $array;
 }
 
-// TODO kundenname, supporternamen suche
 function get_anfrageliste_auswertung ($betreff = null, $kunde = null, $supporter = null, $supportart = null, $status = null) {
 	$anfragen = array();
 

@@ -152,7 +152,6 @@ function get_anfrageliste ($betreff, $kunde, $supporter, $supportart, $status) {
 	foreach($anfragen as $anfrage) {
 		if(!$first)
 			$result .= "<tr>";	
-		// TODO kundenname, supporter
 		$result .= "	<td>$anfrage[betreff]</td>
 						<td>$anfrage[kunde]</td>
 						<td>$anfrage[supporter]</td>
