@@ -1,6 +1,6 @@
 var req = null;
 var element = null;
-function handleTranslation() {
+function handleValidationTranslation() {
 	switch (req.readyState) {
 	case 4:
 		if (req.status != 200) {
@@ -39,7 +39,7 @@ function validate(elem, type, compare_elem) {
 	var url = home_url+'php/ajax/validate.php?value='+elem.value+'&type='+type+compare_value;
 	req.open("GET", url, true);
 	//Beim abschliessen des request wird diese Funktion ausgeführt
-	req.onreadystatechange = handleTranslation;
+	req.onreadystatechange = handleValidationTranslation;
 	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	req.send(null);
 }

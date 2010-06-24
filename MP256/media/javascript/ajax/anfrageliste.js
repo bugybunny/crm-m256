@@ -5,7 +5,7 @@ function do_bold(element, statusid){
 	update_list(statusid);
 }
 
-function handleTranslation() {
+function handleAnfragelisteTranslation() {
 	switch (req.readyState) {
 		case 4 :
 			if (req.status != 200) {
@@ -52,7 +52,7 @@ function update_list(statusid, updateid) {
 	var url = home_url+'php/ajax/anfragen.php?statusid='+statusid+""+ext;
 	req.open("GET", url, true);
 	//Beim abschliessen des request wird diese Funktion ausgeführt
-	req.onreadystatechange = handleTranslation;
+	req.onreadystatechange = handleAnfragelisteTranslation;
 	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	req.send(null);
 }
