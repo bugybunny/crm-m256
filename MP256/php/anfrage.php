@@ -1,4 +1,6 @@
 <?php
+check_login();
+
 $anfrage_id = isset($g_id) ? trim($g_id) : "0";
 
 $anfrage = get_anfrage($anfrage_id);
@@ -51,6 +53,7 @@ if(!empty($anfrage)) {
 			$output .= 'Es ist noch keine Antwort vorhanden';
 	}
 } else {
-	$output .= "Keine Anfrage mit der <b>Anfrag-Id $anfrage_id</b> gefunden.";
+	$output .= "<h1>Anfrage</h1>";
+	$output .= "Keine Anfrage mit der Anfrage-Id $anfrage_id gefunden.";
 }
 ?>
