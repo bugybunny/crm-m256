@@ -2,9 +2,6 @@
 $output .= '<h1>Liste</h1>';
 $output .= '<table>
 				<tr id="anfragen">
-					<td id="open" style="width:100px;">
-						<a href="#" onclick="do_bold(this, 1)">Open</a>
-					</td>
 					<td id="working" style="width:100px;">
 						<a href="#" onclick="do_bold(this, 2)">Working</a>
 					</td>
@@ -14,7 +11,7 @@ $output .= '<table>
 				</tr>
 			</table>';
 $output .= '<div id="anfragenliste">';
-$output .= get_user_anfragen($_SESSION['user_id']);
+$output .= get_supporter_anfragen($_SESSION['user_id']);
 $output .= '</div>
-			<input type="hidden" id="anfrage_typ" value="user" />';
+			<input type="hidden" id="anfrage_typ" value="supporter" />';
 ?>

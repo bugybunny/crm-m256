@@ -42,7 +42,13 @@ function update_list(statusid, updateid) {
 	if(updateid != null){
 		var ext = "&update="+updateid;
 	}
-	ext += "&mitarbeiter="+document.getElementById("user_id").value;
+	if(document.getElementById("anfrage_typ").value == "supportart"){
+		ext += "&team_mitarbeiter="+document.getElementById("user_id").value;
+	} else if(document.getElementById("anfrage_typ").value == "user"){
+		ext += "&user="+document.getElementById("user_id").value;
+	} else if(document.getElementById("anfrage_typ").value == "supporter"){
+		ext += "&mitarbeiter="+document.getElementById("user_id").value;
+	}
 	var url = home_url+'php/ajax/anfragen.php?statusid='+statusid+""+ext;
 	req.open("GET", url, true);
 	//Beim abschliessen des request wird diese Funktion ausgeführt

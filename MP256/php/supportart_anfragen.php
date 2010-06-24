@@ -15,5 +15,6 @@ $output .= '<table>
 			</table>';
 $output .= '<div id="anfragenliste">';
 $output .= get_anfragen_liste($_SESSION['user_id']);
-$output .= '</div>';
+$output .= '</div>
+			<input type="hidden" id="anfrage_typ" value="supportart" />';
 ?>

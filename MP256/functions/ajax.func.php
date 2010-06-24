@@ -83,4 +83,43 @@ function get_user_anfragen($user_id, $status_id = 1){
 	$result .= '</table>';
 	return $result;
 }
+
+function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
+	// DB ANFRAGE FÜR LISTE
+	$result =
+	'<table>
+		<tr style="border-bottom: 2px solid black;">
+			<th style="width:20px;">Nr.</th>';
+	if($status_id != 1){
+		$result .=
+			'<th style="width:210px;">Supportart</th>
+			<th style="width:270px;">Kunde</th>';
+	}	else {
+		$result .=
+			'<th style="width:290px;">Supportart</th>';
+	}
+	$result .=
+			'<th style="width:600px;">Betreff</th>
+		</tr>';
+	// ABFÜLLEN DER DATEN
+
+	$anfragen = get_anfragenliste_support($mitarbeiter_id, $status_id);
+
+	for($i = 0; $i < count($anfragen); $i++){
+		$result .=
+		'<tr style="border-bottom: 1px solid black;">
+			<td align="center"><a href="index.php?site=anfragen">'.($anfragen[$i]['anfrage_nr']).'</a></td>
+			<td>'.($anfragen[$i]['supportart']).'</td>';
+		if($status_id != 1){
+		$result .=
+			'<td>'.($anfragen[$i]['kunde']).'</td>';
+		}
+		$result .=
+			'<td>'.($anfragen[$i]['betreff']).'</td>
+		</tr>';
+	}
+	
+	$result .= '</table>';
+	return $result;
+}
 ?>

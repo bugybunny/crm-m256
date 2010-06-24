@@ -158,7 +158,25 @@ function get_anfragenliste_supportteam($status_id, $mitarbeiter_id){
 
 // Alle Anfragen von Status (Open, Working/Reworking, Done)
 function get_anfragenliste_user($benutzer_id, $status) {
-	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.kunden_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.mitarbeiter_ref = b.id;";
+	$sql = "SELECT
+			  a.anfrage_nr,
+			  a.datum,
+			  a.betreff,
+			  b.name,
+			  b.vorname,
+			  st.status,
+			  sa.supportart
+			FROM
+			  anfrage a
+			LEFT JOIN
+			  benutzer b ON b.id = a.mitarbeiter_ref
+			LEFT JOIN
+			  supportart sa ON sa.id = a.supportart_ref
+			LEFT JOIN
+			  status st ON st.status_id=a.status_ref
+			WHERE
+			  a.kunden_ref=".$benutzer_id."
+			  AND a.status_ref = ".$status.";";
 	$result = mysql_query($sql);
 	$array = array();
 	$i = 0;
@@ -176,7 +194,7 @@ function get_anfragenliste_user($benutzer_id, $status) {
 
 // Alle Anfragen wo ich supporter bin (Working/Reworking, Done)
 function get_anfragenliste_support($benutzer_id, $status) {
-	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.mitarbeiter_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.kunden_ref = b.id;";
+	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.mitarbeiter_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.kunden_ref = b.id;";
 	$result = mysql_query($sql);
 	$array = array();
 	$i = 0;
@@ -184,7 +202,6 @@ function get_anfragenliste_support($benutzer_id, $status) {
 		$array[$i]["anfrage_nr"] = $row["anfrage_nr"];
 		$array[$i]["datum"] = $row["datum"];
 		$array[$i]["betreff"] = $row["betreff"];
-		$array[$i]["problem"] = $row["problem"];
 		$array[$i]["kunde"] = $row["name"]." ".$row["vorname"];
 		$array[$i]["status"] = $row["status"];
 		$array[$i]["supportart"] = $row["supportart"];
