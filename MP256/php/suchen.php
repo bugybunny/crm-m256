@@ -1,4 +1,6 @@
 <?php
+check_mitarbeiter();
+
 $output .=  '<table>
 		   	    <tr>
 		    		<th>Datum</th><th>Betreff</th><th>Kunde</th></th><th>Supporter</th><th>Supportart</th><th>Status</th>
