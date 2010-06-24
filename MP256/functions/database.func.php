@@ -114,7 +114,7 @@ function get_status($id) {
 }
 
 function get_anfrage($anfrage_nr) {
-    $sql = "SELECT DISTINCT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status, sa.supportart
+    $sql = "SELECT DISTINCT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status, sa.supportart, 
     			FROM anfrage a JOIN (benutzer b, `status` s, supportart sa, benutzer_supportart b_sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref AND b_sa.supportart_id = a.supportart_ref)
     			WHERE a.anfrage_nr = ".$anfrage_nr." AND (a.mitarbeiter_ref = ".$_SESSION[user_id]." OR a.kunden_ref = ".$_SESSION[user_id]." OR b_sa.benutzer_id = a.mitarbeiter_ref)";
     $return = mysql_query($sql);
@@ -204,6 +204,30 @@ function get_anfragenliste_support($benutzer_id, $status) {
 		$i++;
 	}
 	return $array;
+}
+
+function get_anfrageliste_auswertung ($datum = null, $betreff = null, $problem = null, $status = null, $supportart = null) {
+	$anfragen = array();
+	
+	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, a.status_ref, a.supportart_ref, s.status, sa.supportart FROM anfrage a JOIN (`status` s, supportart sa) ON (s.status_id = a.status_ref AND sa.id = a.supportart_ref) WHERE a.anfrage_nr = 1 AND (a.mitarbeiter_ref = 33 OR a.kunden_ref = 33 OR b_sa.benutzer_id = a.mitarbeiter_ref)";
+	if($datum != null) {
+		$sql .= " AND a.datum LIKE ='$datum*' ";
+	} elseif($betreff != null) {
+		$sql .= " AND a.betreff LIKE ='$betreff*' ";
+	} elseif($problem != null) {
+		$sql .= " AND a.problem LIKE ='$problem*' ";
+	} elseif($status != null) {
+		$sql .= " AND s.status LIKE ='$status*' ";
+	} elseif($supportart != null) {
+		$sql .= " AND sa.supportart LIKE ='$supportart*' ";
+	}
+	$result = mysql_query($sql);
+	if(mysql_num_rows($result)) {
+		while($anfrage = mysql_fetch_assoc($result)) {
+			$anfragen[] = $anfrage;
+		}
+	}
+	return $anfragen;
 }
 
 function working_anfrage($mitarbeiter_id, $anfrage_id){
