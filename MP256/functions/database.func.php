@@ -375,10 +375,22 @@ function get_anfrageliste_auswertung ($betreff = null, $kunde = null, $supporter
 		$sql .= " AND a.betreff LIKE '$betreff%' ";
 	}
 	if(!empty($kunde)) {
-		$sql .= " AND a.problem LIKE '$problem%' ";
+		// Kunden Suchname in Vor- und Nachname splitten
+		// Sobald ein Leerzeichen enthalten ist, wird angenommen beim letzten Teil handle es sich um den Nachnamen		
+		$kunde = explode(" ", $kunde);
+		if(count($kunde) > 1)
+			$sql .= " AND b.vorname = '$kunde[0]' AND b.name LIKE '$kunde[1]%' ";
+		else 
+			$sql .= " AND b.vorname LIKE '$kunde[0]%' ";
 	}
 	if(!empty($supporter)) {
-		$sql .= " AND a.problem LIKE '$problem%' ";
+		// Supporter Suchname in Vor- und Nachname splitten
+		// Sobald ein Leerzeichen enthalten ist, wird angenommen beim letzten Teil handle es sich um den Nachnamen		
+		$supporter = explode(" ", $supporter);
+		if(count($supporter) > 1)
+			$sql .= " AND bma.vorname = '$supporter[0]' AND bma.name LIKE '$supporter[1]%' ";
+		else 
+			$sql .= " AND bma.vorname LIKE '$supporter[0]%' ";
 	}
 	if(!empty($supportart)) {
 		$sql .= " AND a.supportart_ref = $supportart ";

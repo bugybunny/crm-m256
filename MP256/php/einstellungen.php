@@ -12,7 +12,7 @@ if(isset($p_save)) {
 		}
 	}
 	if (!validate("empty", $p_vorname)) {
-		$warning['vorname'] = "Bitte Vorname eingeben";
+	    $warning['vorname'] = "Bitte Vorname eingeben";
 	}
 	if (!validate("empty", $p_nachname)) {
 		$warning['nachname'] = "Bitte Nachname eingeben";
