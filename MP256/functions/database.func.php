@@ -122,9 +122,14 @@ function get_anfrage($anfrage_nr) {
 	return null;
 }
 
-// Alle Anfragen von Status (Open, Working/Reworking, Done)
-function get_anfragenliste_user($benutzer_id, $status) {
-	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.kunden_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.mitarbeiter_ref = b.id;";
+// Alle Anfragen von einem Kunden, Status (Open, Working/Reworking, Done) kann optional angegeben werden
+function get_anfragenliste_user($benutzer_id, $status = null) {
+	if($status == null) {
+		$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.kunden_ref=".$benutzer_id." AND st.status_id= a.status_ref AND a.supportart_ref = sa.id AND a.mitarbeiter_ref = b.id;";	
+	} else {
+		$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.kunden_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.mitarbeiter_ref = b.id;";	
+	}
+	
 	$result = mysql_query($sql);
 	$array = array();
 	$i = 0;
@@ -142,9 +147,13 @@ function get_anfragenliste_user($benutzer_id, $status) {
 	return $array;
 }
 
-// Alle Anfragen wo ich supporter bin (Working/Reworking, Done)
-function get_anfragenliste_support($benutzer_id, $status) {
-	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.mitarbeiter_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.kunden_ref = b.id;";
+// Alle Anfragen wo ich supporter bin, Status (Working/Reworking, Done) kann optional angegeben werden
+function get_anfragenliste_support($benutzer_id, $status = null) {
+	if($status == null) {
+		$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.mitarbeiter_ref=".$benutzer_id." AND st.status_id= a.status_ref AND a.supportart_ref = sa.id AND a.kunden_ref = b.id;";
+	} else {
+		$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.mitarbeiter_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.kunden_ref = b.id;";
+	}
 	$result = mysql_query($sql);
 	$array = array();
 	$i = 0;
