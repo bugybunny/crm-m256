@@ -135,7 +135,31 @@ function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 	return $result;
 }
 
-function get_anfrageliste ($datum = null, $betreff = null, $problem = null, $status = null, $supportart = null) {
+function get_anfrageliste ($searchtype, $value) {
+	$datum = null;
+	$betreff = null;
+	$problem = null;
+	$status = null;
+	$supportart = null;
+
+	switch($searchtype) {
+		case "datum":
+			$datum = $value;
+			break;
+		case "betreff":
+			$betreff = $value;
+			break;
+		case "problem":
+			$problem = $value;
+			break;
+		case "status":
+			$status = $value;
+			break;	
+		case "betreff":
+			$supportart = $value;
+			break;
+	}
+	
 	$anfragen = get_anfrageliste_auswertung($datum, $betreff, $problem, $status, $supportart);
 	$result .=   "<table>
 			   	    <tr>
