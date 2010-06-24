@@ -1,4 +1,5 @@
 <?php
+$output .= "<div id='auswertung'>";
 check_mitarbeiter();
 
 $output .=  '<table>
@@ -15,5 +16,5 @@ $output .=  '<table>
 			    </tr>
 			</table>';
 
-$output .= "<div id='auswertung'></div>";
+$output .= "</div>";
 ?>

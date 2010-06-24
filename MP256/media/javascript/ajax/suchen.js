@@ -6,7 +6,6 @@ function handleSearch() {
 		if (req.status != 200) {
 			alert("Fehler:" + req.status);
 		} else {
-			alert(req.responseText);
 			//Antwort des Servers
 			document.getElementById("auswertung").innerHTML = req.responseText;
 		}

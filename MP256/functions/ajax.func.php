@@ -172,7 +172,18 @@ function get_anfrageliste ($searchtype, $value) {
 	}
 	
 	$anfragen = get_anfrageliste_auswertung($datum, $betreff, $problem, $status, $supportart);
-	$result .=   "<table>";
+	$result .=   "<table>
+			   	    <tr>
+			    		<th>Datum</th><th>Betreff</th><th>Kunde</th></th><th>Supporter</th><th>Supportart</th><th>Status</th>
+			    	</tr>
+					<tr>
+						<td><input type='text' name='suche_datum' value='$datum' onkeyup='search(\"datum\", this.value)' />
+						<td><input type='text' name='suche_betreff' value='$betreff' nkeyup='search(\"betreff\", this.value)' />
+						<td><input type='text' name='suche_kunde' value='$kunde' onkeyup='search(\"kunde\", this.value)' />
+						<td><input type='text' name='suche_supporter' value='$supporter' onkeyup='search(\"supporter\", this.value)' />
+						<td><input type='text' name='suche_supportart' value='$supportart' onkeyup='search(\"supportart\", this.value)' />
+						<td><input type='text' name='suche_status' value='$status' onkeyup='search(\"status\", this.value)' />
+					</tr>";
 	
 	foreach($anfragen as $anfrage) {
 		// TODO kundenname, supporter
@@ -185,7 +196,7 @@ function get_anfrageliste ($searchtype, $value) {
 						<td>$anfrage[status]</td>
 					</tr>";
 	}
-	
+	$result .= "<td><input type='button' onclick=page.php?array=serialize($array)"
 	$result .= "</table>";
 	
 	return $result;
