@@ -10,6 +10,7 @@ function html_header($title){
 	$output .= "<script type=\"text/javascript\" src=\"media/javascript/script.js\"></script>";
 	$output .= "<script type=\"text/javascript\" src=\"media/javascript/ajax/validate.js\"></script>";
 	$output .= "<script type=\"text/javascript\" src=\"media/javascript/ajax/anfrageliste.js\"></script>";
+	$output .= "<script type=\"text/javascript\" src=\"media/javascript/ajax/suchen.js\"></script>";
 	$output .= "</head>\n";
 	$output .= "<body>\n";
 	return $output;
