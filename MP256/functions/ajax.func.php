@@ -25,7 +25,7 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 	for($i = 0; $i < count($anfragen); $i++){
 		$result .=
 		'<tr style="border-bottom: 1px solid black;">
-			<td align="center"><a href="index.php?site=anfragen">'.($anfragen[$i]['anfrage']).'</a></td>
+			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'">'.($anfragen[$i]['anfrage']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>
 			<td>'.($anfragen[$i]['kunde']).'</td>';
 		if($status_id != 1){
@@ -69,7 +69,7 @@ function get_user_anfragen($user_id, $status_id = 1){
 	for($i = 0; $i < count($anfragen); $i++){
 		$result .=
 		'<tr style="border-bottom: 1px solid black;">
-			<td align="center"><a href="index.php?site=anfragen">'.($anfragen[$i]['anfrage_nr']).'</a></td>
+			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>';
 		if($status_id != 1){
 		$result .=
@@ -108,7 +108,7 @@ function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 	for($i = 0; $i < count($anfragen); $i++){
 		$result .=
 		'<tr style="border-bottom: 1px solid black;">
-			<td align="center"><a href="index.php?site=anfragen">'.($anfragen[$i]['anfrage_nr']).'</a></td>
+			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>';
 		if($status_id != 1){
 		$result .=
