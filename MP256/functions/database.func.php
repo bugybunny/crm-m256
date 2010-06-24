@@ -350,7 +350,27 @@ function get_anfragenliste_support($benutzer_id, $status) {
 function get_anfrageliste_auswertung ($betreff = null, $kunde = null, $supporter = null, $supportart = null, $status = null) {
 	$anfragen = array();
 
-	$sql = "SELECT a.anfrage_nr, a.betreff, a.problem, a.status_ref, a.supportart_ref, s.status, sa.supportart FROM anfrage a JOIN (`status` s, supportart sa) ON (s.status_id = a.status_ref AND sa.id = a.supportart_ref) WHERE TRUE ";
+	$sql = "SELECT
+				a.anfrage_nr,
+				a.betreff,
+				a.problem,
+				a.status_ref,
+				a.supportart_ref,
+				s.status,
+				sa.supportart,
+	            CONCAT(b.vorname, ' ', b.name) as kunde,
+	            CONCAT(bma.vorname, ' ', bma.name) as supporter
+			FROM anfrage a
+			LEFT JOIN
+				`status` s ON s.status_id = a.status_ref
+	        LEFT JOIN
+              	supportart sa ON sa.id = a.supportart_ref
+            LEFT JOIN
+              	benutzer b ON b.id = a.kunden_ref
+            LEFT JOIN
+            	benutzer bma ON bma.id = a.mitarbeiter_ref			
+			WHERE TRUE";	
+	
 	if(!empty($betreff)) {
 		$sql .= " AND a.betreff LIKE '$betreff%' ";
 	}

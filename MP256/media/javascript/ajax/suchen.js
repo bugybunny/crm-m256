@@ -38,7 +38,7 @@ function search(searchtype, searchvalue) {
 	var supportart = document.getElementById('suche_supportart').value;
 	var status = document.getElementById('suche_status').value;
 	var url = home_url + 'php/ajax/suchen.php?betreff=' + betreff + '&kunde=' + kunde + '&supporter=' + supporter + '&supportart=' + supportart + '&status=' + status;
-	req.open("GET", url, true);
+	req.open("POST", url, true);
 	//Beim abschliessen des request wird diese Funktion ausgeführt
 	req.onreadystatechange = handleSearch;
 	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
