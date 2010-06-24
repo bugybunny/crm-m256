@@ -154,39 +154,56 @@ function get_anfragenliste_supportteam($status_id, $mitarbeiter_id){
 
 // Alle Anfragen von Status (Open, Working/Reworking, Done)
 function get_anfragenliste_user($benutzer_id, $status) {
-    $sql = "SELECT a.anfrage_nr, a.datum, a.betreff, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.kunden_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.mitarbeiter_ref = b.id;";
-    $return = mysql_query($sql);
-    $array = array();
-    $i = 0;
-    while (($row = mysql_fetch_assoc($return))) {
-        $array[$i]["anfrage_nr"] = $row["anfrage_nr"];
-        $array[$i]["datum"] = $row["datum"];
-        $array[$i]["betreff"] = $row["betreff"];
-        $array[$i]["mitarbeiter"] = $row["name"]." ".$row["vorname"];
-        $array[$i]["status"] = $row["status"];
-        $array[$i]["supportart"] = $row["supportart"];
-        $i++;
-    }
-    return $array;
+	$sql = "SELECT
+			  a.anfrage_nr,
+			  a.datum,
+			  a.betreff,
+			  b.name,
+			  b.vorname,
+			  st.status,
+			  sa.supportart
+			FROM
+			  anfrage a
+			LEFT JOIN
+			  benutzer b ON b.id = a.mitarbeiter_ref
+			LEFT JOIN
+			  supportart sa ON sa.id = a.supportart_ref
+			LEFT JOIN
+			  status st ON st.status_id=a.status_ref
+			WHERE
+			  a.kunden_ref=".$benutzer_id."
+			  AND a.status_ref = ".$status.";";
+	$result = mysql_query($sql);
+	$array = array();
+	$i = 0;
+	while (($row = mysql_fetch_array($result))) {
+		$array[$i]["anfrage_nr"] = $row["anfrage_nr"];
+		$array[$i]["datum"] = $row["datum"];
+		$array[$i]["betreff"] = $row["betreff"];
+		$array[$i]["mitarbeiter"] = $row["name"]." ".$row["vorname"];
+		$array[$i]["status"] = $row["status"];
+		$array[$i]["supportart"] = $row["supportart"];
+		$i++;
+	}
+	return $array;
 }
 
 // Alle Anfragen wo ich supporter bin (Working/Reworking, Done)
 function get_anfragenliste_support($benutzer_id, $status) {
-    $sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.mitarbeiter_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.kunden_ref = b.id;";
-    $return = mysql_query($sql);
-    $array = array();
-    $i = 0;
-    while (($row = mysql_fetch_assoc($return))) {
-        $array[$i]["anfrage_nr"] = $row["anfrage_nr"];
-        $array[$i]["datum"] = $row["datum"];
-        $array[$i]["betreff"] = $row["betreff"];
-        $array[$i]["problem"] = $row["problem"];
-        $array[$i]["kunde"] = $row["name"]." ".$row["vorname"];
-        $array[$i]["status"] = $row["status"];
-        $array[$i]["supportart"] = $row["supportart"];
-        $i++;
-    }
-    return $array;
+	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, b.name, b.vorname, st.status, sa.supportart FROM anfrage a, benutzer b, status st, supportart sa WHERE a.mitarbeiter_ref=".$benutzer_id." AND a.status_ref = ".$status." AND st.status_id=".$status." AND a.supportart_ref = sa.id AND a.kunden_ref = b.id;";
+	$result = mysql_query($sql);
+	$array = array();
+	$i = 0;
+	while (($row = mysql_fetch_array($result))) {
+		$array[$i]["anfrage_nr"] = $row["anfrage_nr"];
+		$array[$i]["datum"] = $row["datum"];
+		$array[$i]["betreff"] = $row["betreff"];
+		$array[$i]["kunde"] = $row["name"]." ".$row["vorname"];
+		$array[$i]["status"] = $row["status"];
+		$array[$i]["supportart"] = $row["supportart"];
+		$i++;
+	}
+	return $array;
 }
 
 function working_anfrage($mitarbeiter_id, $anfrage_id){
@@ -225,7 +242,7 @@ function antwort_erstellen($datum, $antwort, $anfrage_nr){
     if(empty($return)) return false;
     $row = mysql_fetch_assoc($return);
     if ($row >= 1){
-        $sql = "UPDATE anfrage SET status_ref = 3;";
+        $sql = "UPDATE anfrage SET status_ref = 3 WHERE anfrage_nr=$anfrage_nr;";
         $return = mysql_query($sql);
         return true;       
     }
