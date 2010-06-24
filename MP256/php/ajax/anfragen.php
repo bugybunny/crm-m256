@@ -2,11 +2,11 @@
 require_once '../../functions/ajax.func.php';
 require_once '../../functions/database.func.php';
 
-$status_id = $_GET['statusid'];
-$update_id = $_GET['update'];
-$team_mitarbeiter_id = $_GET['team_mitarbeiter'];
-$mitarbeiter_id = $_GET['mitarbeiter'];
-$user_id = $_GET['user'];
+$status_id = mysql_escape_string($_GET['statusid']);
+$update_id = mysql_escape_string($_GET['update']);
+$team_mitarbeiter_id = mysql_escape_string($_GET['team_mitarbeiter']);
+$mitarbeiter_id = mysql_escape_string($_GET['mitarbeiter']);
+$user_id = mysql_escape_string($_GET['user']);
 
 $connection = get_connection();
 
