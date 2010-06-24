@@ -170,4 +170,26 @@ function get_anfragenliste_support($benutzer_id, $status = null) {
 	}
 	return $array;
 }
+
+function get_benutzerdaten($user_id){
+    $sql = "SELECT name, vorname, email FROM benutzer b WHERE b.id=".$user_id;
+    $result = mysql_query($sql);
+    $array = array();
+    while (($row = mysql_fetch_array($result))) {
+        $array["name"] = $row["name"];
+        $array["vorname"] = $row["vorname"];
+        $array["email"] = $row["email"];
+    }
+    return $array;
+}
+
+function update_benutzerdaten($user_id, $name, $vorname, $email){
+    $sql = "UPDATE benutzer SET name = '".$name."', vorname = '".$vorname."', email = '".$email."' WHERE id = '".$user_id."';";
+    $result = mysql_query($sql);
+}
+
+function update_benutzerdaten_passwort($user_id, $name, $vorname, $email, $pw){
+    $sql = "UPDATE benutzer SET name = '".$name."', vorname = '".$vorname."', email = '".$email."', pw='".md5($pw)."' WHERE id = '".$user_id."';";
+    $result = mysql_query($sql);
+}
 ?>
