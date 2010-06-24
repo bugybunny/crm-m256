@@ -86,6 +86,7 @@ body {
 }
 
 .info {
+	color: #595959;
 	padding-left: 3px;
 	font-size: 0.9em;
 	vertical-align: middle;

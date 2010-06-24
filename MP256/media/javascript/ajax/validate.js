@@ -16,7 +16,7 @@ function handleTranslation() {
 		break;
 	}
 }
-function validate(elem, type) {
+function validate(elem, type, compare_elem) {
 	element = elem;
 	//erstellen des requests
 	try {
@@ -35,7 +35,8 @@ function validate(elem, type) {
 	if (req == null)
 		alert("Error creating request object!");
 	var home_url = document.getElementById('home_url').value;
-	var url = home_url+'php/ajax/validate.php?value='+elem.value+'&type='+type;
+	var compare_value = compare_elem != null ? "&compare_value="+compare_elem.value : "";
+	var url = home_url+'php/ajax/validate.php?value='+elem.value+'&type='+type+compare_value;
 	req.open("GET", url, true);
 	//Beim abschliessen des request wird diese Funktion ausgeführt
 	req.onreadystatechange = handleTranslation;

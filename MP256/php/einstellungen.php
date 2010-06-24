@@ -1,22 +1,12 @@
 <?php
-$p_kunden_login = isset($p_kunden_login) ? trim($p_kunden_login) : "";
 $p_vorname = isset($p_vorname) ? trim($p_vorname) : "";
 $p_nachname = isset($p_nachname) ? trim($p_nachname) : "";
 $p_email = isset($p_email) ? trim($p_email) : "";
 $p_pw_1 = isset($p_pw_1) ? trim($p_pw_1) : "";
 $p_pw_2 = isset($p_pw_2) ? trim($p_pw_2) : "";
 
-if(isset($p_registrieren)) {
-	if (!validate("username", $p_kunden_login)) {
-		$warning['kunden_login'] = "Benutzername falsch oder bereits vorhanden";
-	}
-	if (!validate("empty", $p_pw_1)) {
-		$warning['pw1'] = "Bitte Passwort eingeben";
-	}
-	if (!validate("empty", $p_pw_2)) {
-		$warning['pw2'] = "Bitte zweites Passwort eingeben";
-	}
-	if(!empty($p_pw_1) && !empty($p_pw_2)){
+if(isset($p_save)) {
+	if(validate("empty", $p_pw_1) && validate("empty", $p_pw_2)){
 		if (!validate("compare", $p_pw_1, $p_pw_2)) {
 	  		$warning['pw2'] = "Passwörter sind nicht gleich!";
 		}
@@ -31,15 +21,22 @@ if(isset($p_registrieren)) {
 		$warning['email'] = "Die eingegebene E-Mail Adresse ist ungültig";
 	}
 	if(empty($warning)){
-		if(regist($p_kunden_login, $p_nachname, $p_vorname, $p_email, $p_pw_1)){
-			$bestaetigung = "Der Benutzer '<b>$p_kunden_login</b>' wurde erfolgreich registriert";
+		if(validate("empty", $p_pw_1) && validate("empty", $p_pw_2)){
+			update_benutzerdaten_passwort($_SESSION["user_id"], $p_nachname, $p_vorname, $p_email, $p_pw_1);
 		} else {
-			$bestaetigung = "Der Benutzer '<b>$p_kunden_login</b>'s konnte nicht registriert werden.";
+			update_benutzerdaten($_SESSION["user_id"], $p_nachname, $p_vorname, $p_email);
 		}
+		$bestaetigung = "Das Profil wurde erfolgreich geändert.";
 	}
+} else {
+	$user_daten = get_benutzerdaten($_SESSION["user_id"]);
+	$p_vorname = $user_daten["vorname"];
+	$p_nachname = $user_daten["name"];
+	$p_email = $user_daten["email"];
+	$info = "<b>Info:</b><i> Falls kein neues Passwort angegeben wird, werden nur die anderen Änderungen gespeichert.</i>";
 }
 
-$output .= "<h1>Registrierung</h1>";
+$output .= "<h1>Einstellungen</h1>";
 if(empty($warning) && !empty($bestaetigung)){
 	$output .= "<div id='meldung'>$bestaetigung</div>";
 } else {
@@ -49,23 +46,20 @@ if(empty($warning) && !empty($bestaetigung)){
 	    $text .= "<li>".$warn."</li>"; 
 	    $text .= "</ul></div>";
 	    $output .= $text;
-	} 
+	}
+	if(!empty($info))
+		$output .= "<div id='meldung'>$info</div>";
 	$output .= 
 	'<form name="registrierung" action="'.$_SERVER['PHP_SELF'].'?site='.$site.'" method="post">
 		<table>
 			<tr>
-				<td class="left" width="110px">Benutzername:</td>
-				<td><input class="input_field" id="username" name="kunden_login" type="text" value="'.$p_kunden_login.'" size="30" onclick="validate(this, \'username\');" onkeyup="validate(this, \'username\');" /></td>
-				<td><div class="info" id="info_username">'.show_error($warning['kunden_login']).'</div></td>
-			</tr>
-			<tr>
-				<td class="left">Neues Passwort:</td>
-				<td><input class="input_field" id="pw1" name="pw_1" type="password" value="'.$p_pw_1.'" size="30" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
+				<td class="left" width="110px">Neues Passwort:</td>
+				<td><input class="input_field" id="pw1" name="pw_1" type="password" value="'.$p_pw_1.'" size="30" /></td>
 				<td><div class="info" id="info_pw1">'.show_error($warning['pw1']).'</div></td>
 			</tr>
 			<tr>
 				<td class="left">Wiederholen:</td>
-				<td><input class="input_field" id="pw2" name="pw_2" type="password" value="'.$p_pw_2.'" size="30" onclick="validate(this, \'empty\');" onkeyup="validate(this, \'empty\');" /></td>
+				<td><input class="input_field" id="pw2" name="pw_2" type="password" value="'.$p_pw_2.'" size="30" onclick="validate(this, \'compare\', document.getElementById(\'pw1\'));" onkeyup="validate(this, \'compare\', document.getElementById(\'pw1\'));" /></td>
 				<td><div class="info" id="info_pw2">'.show_error($warning['pw2']).'</div></td>
 			</tr>
 		</table>
@@ -87,7 +81,7 @@ if(empty($warning) && !empty($bestaetigung)){
 				<td><div class="info" id="info_email">'.show_error($warning['email']).'</div></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><input type="submit" value="Registrieren" name="registrieren" /></td>
+				<td colspan="2" align="right"><input type="submit" value="Speichern" name="save" /></td>
 			</tr>
 		</table>
 	</form>';
