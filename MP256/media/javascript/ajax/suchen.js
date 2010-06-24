@@ -10,9 +10,6 @@ function handleSearch() {
 			document.getElementById("auwertung").innerHTML = req.responseText;
 		}
 		break;
-	default:
-		return false;
-		break;
 	}
 }
 function search(searchtype, searchvalue) {
