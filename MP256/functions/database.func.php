@@ -6,9 +6,9 @@ define("MYSQL_DATABASE", "m256_3");
 
 function get_connection() {
 	$db_link = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS)
-		or die("Keine Verbindung möglich : " . mysql_error());
+	or die("Keine Verbindung möglich : " . mysql_error());
 	$db_sel = mysql_select_db(MYSQL_DATABASE, $db_link)
-		or die("Datenbank nicht ausgewählt : " . mysql_error());
+	or die("Datenbank nicht ausgewählt : " . mysql_error());
 	return $db_link;
 }
 
@@ -32,16 +32,16 @@ function login($username, $pw){
 	}
 	return $return_array;
 }
- 
+
 function check_username($login){
 	$query = "SELECT id FROM benutzer WHERE benutzer.login = '".$login."';";
 	$return = mysql_query($query);
 	$row = mysql_fetch_assoc($return);
 	if($row>=1)
-		return true;
+	return true;
 	return false;
 }
- 
+
 function regist($login, $name, $vorname, $email, $pw){
 	$query = "SELECT id FROM rolle WHERE rolle.rolle = 'Kunde';";
 	$return = mysql_query($query);
@@ -52,7 +52,7 @@ function regist($login, $name, $vorname, $email, $pw){
 	$return = mysql_query($query);
 	$row = mysql_fetch_assoc($return);
 	if($row>=1)
-		return true;
+	return true;
 	return false;
 }
 
@@ -74,9 +74,9 @@ function get_supportart_dropdown($actual_select) {
 	$output = '<select class="input_field" name="supportart">';
 	while ($row = mysql_fetch_array($result)) {
 		if($actual_select == $row['id'])
-			$output .= '<option value="'.$row['id'].'" selected>'.$row['supportart'].'</option>';
+		$output .= '<option value="'.$row['id'].'" selected>'.$row['supportart'].'</option>';
 		else
-			$output .= '<option value="'.$row['id'].'">'.$row['supportart'].'</option>';
+		$output .= '<option value="'.$row['id'].'">'.$row['supportart'].'</option>';
 	}
 	$output .= '</select>';
 	return $output;
@@ -87,12 +87,12 @@ function get_supportart_dropdown($actual_select) {
  * @return $kunde array gefundener Kunden-Datensatz
  */
 function get_kunde($id) {
-    $result = mysql_query("SELECT login, name, vorname, email, pw, rolle_ref FROM benutzer WHERE benutzer.id = $id");
-    if(mysql_num_rows($result)) {
-        $kunde = mysql_fetch_assoc($result);
-        return $kunde;
-    }
-    return null;
+	$result = mysql_query("SELECT login, name, vorname, email, pw, rolle_ref FROM benutzer WHERE benutzer.id = $id");
+	if(mysql_num_rows($result)) {
+		$kunde = mysql_fetch_assoc($result);
+		return $kunde;
+	}
+	return null;
 }
 
 /**
@@ -101,21 +101,32 @@ function get_kunde($id) {
  * @return $status array gefundener Status-Datensatz
  */
 function get_status($id) {
-    $result = mysql_query("SELECT status FROM status WHERE status.status_id = $id");
-    if(mysql_num_rows($result)) {
-        $status = mysql_fetch_assoc($result);
-        return $status;
-    }
-    return null;
+	$result = mysql_query("SELECT status FROM status WHERE status.status_id = $id");
+	if(mysql_num_rows($result)) {
+		$status = mysql_fetch_assoc($result);
+		return $status;
+	}
+	return null;
 }
 
 function get_anfrage($anfrage_nr) {
-	$result = mysql_query("SELECT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status FROM anfrage a JOIN (benutzer b, `status` s) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref) WHERE a.anfrage_nr = $anfrage_nr");
+	$result = mysql_query("SELECT DISTINCT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status, sa.supportart FROM anfrage a JOIN (benutzer b, `status` s, supportart sa, benutzer_supportart b_sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref AND b_sa.supportart_id = a.supportart_ref) WHERE a.anfrage_nr = $anfrage_nr AND (a.mitarbeiter_ref = $_SESSION[user_id] OR a.kunden_ref = $_SESSION[user_id] OR b_sa.benutzer_id = a.mitarbeiter_ref)")
 	if(mysql_num_rows($result)) {
 		$anfrage = mysql_fetch_assoc($result);
 		return $anfrage;
 	}
 	return null;
+}
+
+function get_anfragen($kunden_id = null) {
+	$result = mysql_query("SELECT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status, sa.supportart FROM anfrage a JOIN (benutzer b, `status` s, supportart sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref)");
+	if(mysql_num_rows($result)) {
+		$anfragen = array();
+		while($anfrage = mysql_fetch_assoc($result)) {
+			$anfragen[] = $anfrage;
+		}
+		return $anfragen;
+	}
 }
 
 function get_anfragenliste_supportteam($status_id, $mitarbeiter_id){
@@ -188,25 +199,25 @@ function working_anfrage($mitarbeiter_id, $anfrage_id){
 }
 
 function get_benutzerdaten($user_id){
-    $sql = "SELECT name, vorname, email FROM benutzer b WHERE b.id=".$user_id;
-    $result = mysql_query($sql);
-    $array = array();
-    while (($row = mysql_fetch_array($result))) {
-        $array["name"] = $row["name"];
-        $array["vorname"] = $row["vorname"];
-        $array["email"] = $row["email"];
-    }
-    return $array;
+	$sql = "SELECT name, vorname, email FROM benutzer b WHERE b.id=".$user_id;
+	$result = mysql_query($sql);
+	$array = array();
+	while (($row = mysql_fetch_array($result))) {
+		$array["name"] = $row["name"];
+		$array["vorname"] = $row["vorname"];
+		$array["email"] = $row["email"];
+	}
+	return $array;
 }
 
 function update_benutzerdaten($user_id, $name, $vorname, $email){
-    $sql = "UPDATE benutzer SET name = '".$name."', vorname = '".$vorname."', email = '".$email."' WHERE id = '".$user_id."';";
-    $result = mysql_query($sql);
+	$sql = "UPDATE benutzer SET name = '".$name."', vorname = '".$vorname."', email = '".$email."' WHERE id = '".$user_id."';";
+	$result = mysql_query($sql);
 }
 
 function update_benutzerdaten_passwort($user_id, $name, $vorname, $email, $pw){
-    $sql = "UPDATE benutzer SET name = '".$name."', vorname = '".$vorname."', email = '".$email."', pw='".md5($pw)."' WHERE id = '".$user_id."';";
-    $result = mysql_query($sql);
+	$sql = "UPDATE benutzer SET name = '".$name."', vorname = '".$vorname."', email = '".$email."', pw='".md5($pw)."' WHERE id = '".$user_id."';";
+	$result = mysql_query($sql);
 }
 
 function antwort_erstellen($datum, $antwort, $anfrage_nr){
