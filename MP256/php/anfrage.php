@@ -1,18 +1,56 @@
 <?php
 $anfrage_id = isset($g_id) ? trim($g_id) : "0";
 
-$output .= '<h1></h1>';
-
 $anfrage = get_anfrage($anfrage_id);
 if(!empty($anfrage)) {
-	$output .= "Datum: ".$anfrage['datum']."<br/>";
-	$output .= "Betreff: ".$anfrage['betreff']."<br/>";
-	$output .= "Problem: ".$anfrage['problem']."<br/>";
-	$output .= "Vorname: ".$anfrage['vorname']."<br/>";
-	$output .= "Name: ".$anfrage['name']."<br/>";
-	$output .= "Email: ".$anfrage['email']."<br/>";
-	$output .= "Status: ".$anfrage['status']."<br/>";
+	$output .= '<h1>'.$anfrage['betreff'].'</h1>';
+	$output .=
+	'<table>
+		<tr>
+			<td class="left" width="110px">Datum:</td>
+			<td>'.convert_date($anfrage['datum'], "d.m.Y - H:i").'</td>
+		</tr>
+		<tr>
+			<td class="left">Kunde:</td>
+			<td>'.$anfrage['vorname'].' '.$anfrage['name'].'</td>
+		</tr>
+	</table>
+	<br/>
+	<table>
+		<tr>
+			<td class="left" width="110px">Status:</td>
+			<td>'.$anfrage['status'].'</td>
+		</tr>
+		<tr>
+			<td class="left">Supportart:</td>
+			<td>'.$anfrage['supportart'].'</td>
+		</tr>
+		<tr valign="top">
+			<td class="left">Problem:</td>
+			<td colspan="2">'.nl2br($anfrage['problem']).'</td>
+		</tr>
+	</table>
+	<h2>Antwort</h2>';
+	$antwort = get_antwort($anfrage_id);
+	if(!empty($antwort)) {
+		$output .=
+		'<table>
+			<tr>
+				<td class="left" width="110px">Datum:</td>
+				<td>'.convert_date($antwort['datum'], "d.m.Y - H:i").'</td>
+			</tr>
+			<tr>
+				<td class="left">Antwort:</td>
+				<td>'.nl2br($antwort['antwort']).'</td>
+			</tr>
+		</table>';
+	} else {
+		if($is_mitarbeiter)
+			$output .= '<a href="'.$php_self.'?site=antwort_erstellen&id='.$anfrage_id.'">Antworten</a>';
+		else
+			$output .= 'Es ist noch keine Antwort vorhanden';
+	}
 } else {
-	$output .= "Keine Anfrage mit Id $anfrage_id gefunden.";
+	$output .= "Keine Anfrage mit der <b>Anfrag-Id $anfrage_id</b> gefunden.";
 }
 ?>

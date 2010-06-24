@@ -56,9 +56,17 @@ function regist($login, $name, $vorname, $email, $pw){
 	return false;
 }
 
-function anfrage_erstellen($datum, $betreff, $problem, $kunden_id, $status, $supportart) {
-	// TODO: DB EINTRAG
-	return true;
+function anfrage_erstellen($datum, $betreff, $problem, $kunden_id, $status, $supportart){
+    $sql = "INSERT INTO anfrage (datum, betreff, problem, kunden_ref, status_ref, supportart_ref)
+                  VALUES('".$datum."', '".$betreff."', '".$problem."', ".$kunden_id.", ".$status.", ".$supportart.");";
+      mysql_query($sql);
+      $sql = "SELECT anfrage_nr FROM anfrage WHERE datum = '".$datum."' AND betreff='".$betreff."' AND problem='".$problem."' AND kunden_ref=".$kunden_id." AND status_ref=".$status." AND supportart_ref=".$supportart.";";
+    $return = mysql_query($sql);
+    if(empty($return)) return false;
+    $row = mysql_fetch_array($return);
+    if ($row >= 1)
+        return true;
+    return false;
 }
 
 function get_supportart_dropdown($actual_select) {
@@ -200,4 +208,30 @@ function update_benutzerdaten_passwort($user_id, $name, $vorname, $email, $pw){
     $sql = "UPDATE benutzer SET name = '".$name."', vorname = '".$vorname."', email = '".$email."', pw='".md5($pw)."' WHERE id = '".$user_id."';";
     $result = mysql_query($sql);
 }
+
+function antwort_erstellen($datum, $antwort, $anfrage_nr){
+    $sql = "INSERT INTO antwort (datum, antwort, anfrage_ref)
+                  VALUES('".$datum."', '".$antwort."', ".$anfrage_nr.");";
+    mysql_query($sql);
+    $sql = "SELECT id FROM antwort WHERE datum = '".$datum."' AND antwort='".$antwort."' AND anfrage_ref=".$anfrage_nr.";";
+    $return = mysql_query($sql);
+    if(empty($return)) return false;
+    $row = mysql_fetch_array($return);
+    if ($row >= 1){
+        $sql = "UPDATE anfrage SET status_ref = 3;";
+        $result = mysql_query($sql);
+        return true;        
+    }
+    return false;
+}
+
+function get_antwort($anfrage_nr){
+    $query = "SELECT datum, antwort FROM antwort WHERE anfrage_ref = ".$anfrage_nr.";";
+    $result = mysql_query($query);
+	if(mysql_num_rows($result)) {
+		$antwort = mysql_fetch_assoc($result);
+		return $antwort;
+	}
+	return null;
+} 
 ?>

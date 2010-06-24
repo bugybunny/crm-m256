@@ -1,5 +1,6 @@
 <?php
 check_login();
+check_kunde();
 
 $p_betreff = isset($p_betreff) ? trim($p_betreff) : "";
 $p_problem = isset($p_problem) ? trim($p_problem) : "";

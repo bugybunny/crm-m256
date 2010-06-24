@@ -1,6 +1,7 @@
 <?php
 // Benötigte Dateien einbinden
 require_once 'functions/check.func.php';
+require_once 'functions/util.func.php';
 require_once 'functions/ajax.func.php';
 require_once 'functions/html.func.php';
 require_once 'functions/database.func.php';
@@ -15,6 +16,7 @@ extract($_POST, EXTR_PREFIX_ALL, "p");
 
 // Allgemein benötigte Variablen deklarieren
 $php_self = $_SERVER['PHP_SELF'];
+$is_mitarbeiter = $_SESSION["user_role"] == "Mitarbeiter";
 $home_path = get_home_path($php_self);
 $home = "startseite";
 $site = isset($g_site) && !empty($g_site) ? $g_site : $home;
