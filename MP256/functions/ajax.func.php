@@ -2,21 +2,21 @@
 function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 	// DB ANFRAGE FÜR LISTE
 	$result =
-	'<table>
+	'<table id="tabelle" cellpadding="0" cellspacing="0" width="960px">
 		<tr>
-			<th style="width:20px;">Nr.</th>';
+			<th width="30px">Nr.</th>';
 	if($status_id != 1){
 		$result .=
-			'<th style="width:140px;">Supportart</th>
-			<th style="width:170px;">Kunde</th>
-			<th style="width:170px;">Supporter</th>';
+			'<th width="200px">Supportart</th>
+			<th>Kunde</th>
+			<th>Supporter</th>';
 	}	else {
 		$result .=
-			'<th style="width:210px;">Supportart</th>
-			<th style="width:280px;">Kunde</th>';
+			'<th width="200px">Supportart</th>
+			<th>Kunde</th>';
 	}
 	$result .=
-			'<th style="width:400px;">Betreff</th>
+			'<th>Betreff</th>
 		</tr>';
 	// ABFÜLLEN DER DATEN
 
@@ -25,24 +25,23 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 	for($i = 0; $i < count($anfragen); $i++){
 		$result .=
 		'<tr>
-			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'">'.($anfragen[$i]['anfrage']).'</a></td>
+			<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'">'.($anfragen[$i]['anfrage']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>
 			<td>'.($anfragen[$i]['kunde']).'</td>';
 		if($status_id != 1){
-			$result .=
+		$result .=
 			'<td>'.($anfragen[$i]['supporter']).'</td>';
 		}
 		$result .=
-			'<td>'.($anfragen[$i]['betreff']).'</td>';
-		if($status_id == 1){
-			$result .= '<td><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt=""></img></a></td>';
-		}
+			'<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'">'.($anfragen[$i]['betreff']).'</a></td>';
+			if($status_id == 1){
+				$result .= '<td><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt=""></img></a></td>';
+			}
 		$result .=
 		'</tr>';
 	}
-
 	if(count($anfragen) == 0){
-		$result = "Keine Daten vorhanden!";
+		$result = keine_anfragen_meldung();
 	} else {
 		$result .= '</table>';
 	}
@@ -52,19 +51,19 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 function get_user_anfragen($user_id, $status_id = 1){
 	// DB ANFRAGE FÜR LISTE
 	$result =
-	'<table>
-		<tr style="border-bottom: 2px solid black;">
-			<th style="width:20px;">Nr.</th>';
+	'<table id="tabelle" cellpadding="0" cellspacing="0" width="960px">
+		<tr>
+			<th width="30px">Nr.</th>';
 	if($status_id != 1){
 		$result .=
-			'<th style="width:210px;">Supportart</th>
-			<th style="width:270px;">Supporter</th>';
+			'<th width="200px">Supportart</th>
+			<th>Supporter</th>';
 	}	else {
 		$result .=
-			'<th style="width:290px;">Supportart</th>';
+			'<th width="200px">Supportart</th>';
 	}
 	$result .=
-			'<th style="width:600px;">Betreff</th>
+			'<th>Betreff</th>
 		</tr>';
 	// ABFÜLLEN DER DATEN
 
@@ -72,20 +71,19 @@ function get_user_anfragen($user_id, $status_id = 1){
 
 	for($i = 0; $i < count($anfragen); $i++){
 		$result .=
-		'<tr style="border-bottom: 1px solid black;">
-			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
+		'<tr>
+			<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>';
 		if($status_id != 1){
-			$result .=
+		$result .=
 			'<td>'.($anfragen[$i]['mitarbeiter']).'</td>';
 		}
 		$result .=
-			'<td>'.($anfragen[$i]['betreff']).'</td>
+			'<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['betreff']).'</a></td>
 		</tr>';
 	}
-
 	if(count($anfragen) == 0){
-		$result = "Keine Daten vorhanden!";
+		$result = keine_anfragen_meldung();
 	} else {
 		$result .= '</table>';
 	}
@@ -95,19 +93,19 @@ function get_user_anfragen($user_id, $status_id = 1){
 function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 	// DB ANFRAGE FÜR LISTE
 	$result =
-	'<table>
-		<tr style="border-bottom: 2px solid black;">
-			<th style="width:20px;">Nr.</th>';
+	'<table id="tabelle" cellpadding="0" cellspacing="0" width="960px">
+		<tr>
+			<th width="30px">Nr.</th>';
 	if($status_id != 1){
 		$result .=
-			'<th style="width:210px;">Supportart</th>
-			<th style="width:270px;">Kunde</th>';
+			'<th width="200px">Supportart</th>
+			<th>Kunde</th>';
 	}	else {
 		$result .=
-			'<th style="width:290px;">Supportart</th>';
+			'<th width="200px">Supportart</th>';
 	}
 	$result .=
-			'<th style="width:600px;">Betreff</th>
+			'<th>Betreff</th>
 		</tr>';
 	// ABFÜLLEN DER DATEN
 
@@ -115,24 +113,27 @@ function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 
 	for($i = 0; $i < count($anfragen); $i++){
 		$result .=
-		'<tr style="border-bottom: 1px solid black;">
-			<td align="center"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
+		'<tr>
+			<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['anfrage_nr']).'</a></td>
 			<td>'.($anfragen[$i]['supportart']).'</td>';
 		if($status_id != 1){
-			$result .=
+		$result .=
 			'<td>'.($anfragen[$i]['kunde']).'</td>';
 		}
 		$result .=
-			'<td>'.($anfragen[$i]['betreff']).'</td>
+			'<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'">'.($anfragen[$i]['betreff']).'</a></td>
 		</tr>';
 	}
-
 	if(count($anfragen) == 0){
-		$result = "Keine Daten vorhanden!";
+		$result = keine_anfragen_meldung();
 	} else {
 		$result .= '</table>';
 	}
 	return $result;
+}
+
+function keine_anfragen_meldung() {
+	return '<div id="meldung" style="margin-top: 10px">Keine Anfragen vorhanden</div>';
 }
 
 function get_anfrageliste ($searchtype, $value) {

@@ -114,9 +114,29 @@ function get_status($id) {
 }
 
 function get_anfrage($anfrage_nr) {
-    $sql = "SELECT DISTINCT a.datum, a.betreff, a.problem, CONCAT(b.vorname, ' ', b.name) as kunde, CONCAT(bm.vorname, ' ', bm.name) as supporter, b.email, s.status, sa.supportart
-                FROM anfrage a JOIN (benutzer b, benutzer bm, `status` s, supportart sa, benutzer_supportart b_sa) ON (b.id = a.kunden_ref AND bm.id = a.mitarbeiter_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref AND b_sa.supportart_id = a.supportart_ref)
-                WHERE a.anfrage_nr = ".$anfrage_nr." AND (a.mitarbeiter_ref = ".$_SESSION[user_id]." OR a.kunden_ref = ".$_SESSION[user_id]." OR b_sa.benutzer_id = a.mitarbeiter_ref)";
+    GLOBAL $is_mitarbeiter;
+    if($is_mitarbeiter){
+        return get_anfrage_mitarbeiter($anfrage_nr);
+    }
+    return get_anfrage_kunde($anfrage_nr);
+}
+
+function get_anfrage_kunde($anfrage_nr){
+    $sql = "SELECT DISTINCT a.datum, a.betreff, a.problem, CONCAT(b.vorname, ' ', b.name) as kunde, s.status, sa.supportart
+                FROM anfrage a JOIN (benutzer b, `status` s, supportart sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref)
+                WHERE a.anfrage_nr = ".$anfrage_nr." AND (a.kunden_ref=".$_SESSION['user_id'].")";
+    $return = mysql_query($sql);
+    if(mysql_num_rows($return)) {
+        $anfrage = mysql_fetch_assoc($return);
+        return $anfrage;
+    }
+    return null;
+}
+
+function get_anfrage_mitarbeiter($anfrage_nr){
+    $sql = "SELECT DISTINCT a.datum, a.betreff, a.problem, CONCAT(b.vorname, ' ', b.name) as kunde, s.status, sa.supportart
+                FROM anfrage a JOIN (benutzer b, `status` s, supportart sa, benutzer_supportart b_sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref AND b_sa.supportart_id = a.supportart_ref)
+                WHERE a.anfrage_nr = ".$anfrage_nr." AND (b_sa.benutzer_id = a.mitarbeiter_ref)";
     $return = mysql_query($sql);
     if(mysql_num_rows($return)) {
         $anfrage = mysql_fetch_assoc($return);
@@ -274,7 +294,7 @@ function antwort_erstellen($datum, $antwort, $anfrage_nr){
 }
 
 function get_antwort($anfrage_nr){
-    $sql = "SELECT datum, antwort FROM antwort WHERE anfrage_ref = ".$anfrage_nr.";";
+    $sql = "SELECT a.datum, a.antwort, CONCAT(b.vorname, ' ', b.name) as supporter FROM antwort a, anfrage an, benutzer b WHERE a.anfrage_ref = ".$anfrage_nr." AND an.anfrage_nr=a.anfrage_ref AND b.id=an.kunden_ref;";
     $return = mysql_query($sql);
     if(mysql_num_rows($return)) {
         $antwort = mysql_fetch_assoc($return);

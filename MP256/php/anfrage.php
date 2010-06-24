@@ -43,7 +43,7 @@ if(!empty($anfrage)) {
 			</tr>
 			<tr>
 				<td class="left">Supporter:</td>
-				<td>'.$anfrage['supporter'].'</td>
+				<td>'.$antwort['supporter'].'</td>
 			</tr>
 			<tr>
 				<td class="left">Antwort:</td>
