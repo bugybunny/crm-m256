@@ -226,20 +226,21 @@ function get_anfragenliste_support($benutzer_id, $status) {
 	return $array;
 }
 
+// TODO kundenname suche
 function get_anfrageliste_auswertung ($datum = null, $betreff = null, $problem = null, $status = null, $supportart = null) {
 	$anfragen = array();
 	
-	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, a.status_ref, a.supportart_ref, s.status, sa.supportart FROM anfrage a JOIN (`status` s, supportart sa) ON (s.status_id = a.status_ref AND sa.id = a.supportart_ref) WHERE a.anfrage_nr = 1 AND (a.mitarbeiter_ref = 33 OR a.kunden_ref = 33 OR b_sa.benutzer_id = a.mitarbeiter_ref)";
+	$sql = "SELECT a.anfrage_nr, a.datum, a.betreff, a.problem, a.status_ref, a.supportart_ref, s.status, sa.supportart FROM anfrage a JOIN (`status` s, supportart sa) ON (s.status_id = a.status_ref AND sa.id = a.supportart_ref) WHERE TRUE ";
 	if($datum != null) {
-		$sql .= " AND a.datum LIKE ='$datum*' ";
+		$sql .= " AND a.datum LIKE '$datum%' ";
 	} elseif($betreff != null) {
-		$sql .= " AND a.betreff LIKE ='$betreff*' ";
+		$sql .= " AND a.betreff LIKE '$betreff%' ";
 	} elseif($problem != null) {
-		$sql .= " AND a.problem LIKE ='$problem*' ";
+		$sql .= " AND a.problem LIKE '$problem%' ";
 	} elseif($status != null) {
-		$sql .= " AND s.status LIKE ='$status*' ";
+		$sql .= " AND s.status LIKE '$status%' ";
 	} elseif($supportart != null) {
-		$sql .= " AND sa.supportart LIKE ='$supportart*' ";
+		$sql .= " AND sa.supportart LIKE '$supportart%' ";
 	}
 	$result = mysql_query($sql);
 	if(mysql_num_rows($result)) {

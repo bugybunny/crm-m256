@@ -162,25 +162,17 @@ function get_anfrageliste ($searchtype, $value) {
 	}
 	
 	$anfragen = get_anfrageliste_auswertung($datum, $betreff, $problem, $status, $supportart);
-	$result .=   "<table>
-			   	    <tr>
-			    		<th>Betreff</th><th>Kunde</th><th>Problem</th></th><th>Mitarbeiter</th>
-			    	</tr>
-					<tr>
-						<td><input type='text' name='suche_datum' onkeyup='search_datum(this.value)' />
-						<td><input type='text' name='suche_betreff' onkeyup='search_betreff(this.value)' />
-						<td><input type='text' name='suche_problem' onkeyup='search_problem(this.value)' />
-						<td><input type='text' name='suche_status' onkeyup='search_status(this.value)' />
-						<td><input type='text' name='suche_supportart' onkeyup='search_supportart(this.value)'/>	
-					</tr>";
+	$result .=   "<table>";
 	
 	foreach($anfragen as $anfrage) {
+		// TODO kundenname, supporter
 		$result .= "<tr>
 						<td>$anfrage[datum]</td>
 						<td>$anfrage[betreff]</td>
-						<td>$anfrage[problem]</td>
-						<td>$anfrage[status]</td>
+						<td>$anfrage[betreff]</td>
 						<td>$anfrage[supportart]</td>
+						<td>$anfrage[supportart]</td>
+						<td>$anfrage[status]</td>
 					</tr>";
 	}
 	

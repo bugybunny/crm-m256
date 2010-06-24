@@ -1,4 +1,5 @@
 <?php
+require_once '../../functions/database.func.php';
 require_once '../../functions/ajax.func.php';
 
 $searchtype = isset($_GET['searchtype']) ? mysql_escape_string($_GET['searchtype']) : "";

@@ -6,12 +6,14 @@ function handleSearch() {
 		if (req.status != 200) {
 			alert("Fehler:" + req.status);
 		} else {
+			alert(req.responseText);
 			//Antwort des Servers
-			document.getElementById("auwertung").innerHTML = req.responseText;
+			document.getElementById("auswertung").innerHTML = req.responseText;
 		}
 		break;
 	}
 }
+
 function search(searchtype, searchvalue) {
 	try {
 		req = new XMLHttpRequest();
@@ -34,7 +36,7 @@ function search(searchtype, searchvalue) {
 	var url = home_url + 'php/ajax/suchen.php?searchtype=' + searchtype + '&value=' + searchvalue;
 	req.open("GET", url, true);
 	//Beim abschliessen des request wird diese Funktion ausgeführt
-	req.onreadystatechange = handleSearch();
+	req.onreadystatechange = handleSearch;
 	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	req.send(null);
 }
