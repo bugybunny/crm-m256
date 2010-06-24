@@ -114,7 +114,7 @@ function get_status($id) {
  * @return $anfrage array gefundener Anfrage-Datensatz
  */
 function get_anfrage($anfrage_nr) {
-	$result = mysql_query("SELECT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status FROM anfrage a JOIN (benutzer b, `status` s) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref) WHERE a.anfrage_nr = $anfrage_nr");
+	$result = mysql_query("SELECT a.datum, a.betreff, a.problem, b.vorname, b.name, b.email, s.status, sa.supportart FROM anfrage a JOIN (benutzer b, `status` s, supportart sa) ON (b.id = a.kunden_ref AND s.status_id = a.status_ref AND sa.id = a.supportart_ref) WHERE a.anfrage_nr = $anfrage_nr");
 	if(mysql_num_rows($result)) {
 		$anfrage = mysql_fetch_assoc($result);
 		return $anfrage;
