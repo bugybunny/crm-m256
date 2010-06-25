@@ -19,15 +19,15 @@ echo $output;
 // TODO richtig formatieren
 function createTable($array) {
 	if(count($array) == 0 || $array == null){
-		return "Keine Daten vorhanden!";
+		return keine_anfragen_meldung();
 	}
 	$return = "<table id=\"tabelle\" cellpadding=\"0\" cellspacing=\"0\" width=\"960px\">";
 	$return .= "<tr align=\"left\">";
-	$return .= "<th width='80px'>Datum</th>";
+	$return .= "<th width='140px'>Datum</th>";
 	$return .= "<th width='150px'>Betreff</th>";
-	$return .= "<th width='160px'>Kunde</th>";
-	$return .= "<th width='160px'>Supporter</th>";
-	$return .= "<th width='160px'>Supportart</th>";
+	$return .= "<th width='150px'>Kunde</th>";
+	$return .= "<th width='150px'>Supporter</th>";
+	$return .= "<th width='150px'>Supportart</th>";
 	$return .= "<th width='80px'>Status</th></tr>";
 	
 	for ($i = 0; $i < count($array); $i++){
