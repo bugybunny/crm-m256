@@ -9,7 +9,7 @@ $output .= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
 $output .= "<html xmlns='http://www.w3.org/1999/xhtml' lang='de' xml:lang='de'>\n";
 $output .= "<head>\n";
 $output .= "<title>Anfragen-Auswertung drucken</title>\n";
-$output .= "<link rel='stylesheet' type='text/css' href='../media/print.css' />\n";
+$output .= "<link rel='stylesheet' type='text/css' href='media/print.css' />\n";
 $output .= "</head>\n";
 $output .= "<body onload='javascript:window.print(self)'>\n";
 $output .= "<h1>Auswertung</h1>";
