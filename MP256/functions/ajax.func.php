@@ -1,4 +1,12 @@
 <?php
+/**
+ * Sucht alle Anfragen eines Mitarbeiters mit einem bestimmten Status
+ * und gibt die Liste formatiert zurück
+ * 
+ * @param $mitarbeiter_id int MitarbeiterID (anfrage.mitarbeiter_ref)
+ * @param $status_id int StatusID(status.status_id)
+ * @return $result string HTML-Code um die Anfrageliste anzuzeigen
+ */
 function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 	// DB ANFRAGE FÜR LISTE
 	$result =
@@ -52,6 +60,14 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 	return $result;
 }
 
+/**
+ * Sucht alle Anfragen eines Kunden mit einem bestimmten Status
+ * und gibt die Liste formatiert zurück
+ * 
+ * @param $mitarbeiter_id int MitarbeiterID (anfrage.kunden_ref)
+ * @param $status_id int StatusID(status.status_id)
+ * @return $result string HTML-Code um die Anfrageliste anzuzeigen
+ */
 function get_user_anfragen($user_id, $status_id = 1){
 	// DB ANFRAGE FÜR LISTE
 	$result =
@@ -96,6 +112,14 @@ function get_user_anfragen($user_id, $status_id = 1){
 	return $result;
 }
 
+/**
+ * Sucht alle Anfragen einer Supportart mit einem bestimmten Status
+ * und gibt die Liste formatiert zurück
+ * 
+ * @param $mitarbeiter_id int MitarbeiterID (anfrage.kunden_ref)
+ * @param $status_id int StatusID(status.status_id)
+ * @return $result string HTML-Code um die Anfrageliste anzuzeigen
+ */
 function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 	GLOBAL $php_self;
 	// DB ANFRAGE FÜR LISTE
