@@ -1,4 +1,4 @@
-function handlePrintTranslation() {
+function handlePrint() {
     switch (req.readyState) {
     case 4:
         if (req.status != 200) {
@@ -39,7 +39,7 @@ function print_list() {
    
     req.open('POST', url, true);
     // Beim abschliessen des request wird diese Funktion ausgeführt
-    req.onreadystatechange = handlePrintTranslation;
+    req.onreadystatechange = handlePrint;
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(parameters);
 }
