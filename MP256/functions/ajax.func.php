@@ -193,8 +193,10 @@ function get_anfrageliste ($betreff, $kunde, $supporter, $supportart, $status) {
 					</tr>";
 	}
 	$result .= "</table>";
-	$result .= "<input type='button' value='Druckansicht' onclick='print_list()'";
-	$result .= "<input id='anfragen' type='hidden' value='".serialize($anfragen)."' onclick='print_list()'";
+	if(count($anfragen) >= 1) {
+		$result .= "<input type='button' value='Druckansicht' onclick='print_list()'";
+		$result .= "<input id='anfragen' type='hidden' value='".serialize($anfragen)."' onclick='print_list()'";
+	}
 	return $result;
 }
 ?>
