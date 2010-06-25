@@ -7,7 +7,7 @@ $anfrage = get_anfrage($anfrage_id);
 if(!empty($anfrage)) {
 	$output .= '<h1>'.$anfrage['betreff'].'</h1>';
 	$output .=
-	'<table>
+	'<table width="940px">
 		<tr>
 			<td class="left" width="110px">Datum:</td>
 			<td>'.convert_date($anfrage['datum'], "d.m.Y - H:i").'</td>
@@ -18,7 +18,7 @@ if(!empty($anfrage)) {
 		</tr>
 	</table>
 	<br/>
-	<table>
+	<table width="940px">
 		<tr>
 			<td class="left" width="110px">Status:</td>
 			<td><b>'.$anfrage['status'].'</b></td>
@@ -36,7 +36,7 @@ if(!empty($anfrage)) {
 	$antwort = get_antwort($anfrage_id);
 	if(!empty($antwort)) {
 		$output .=
-		'<table>
+		'<table width="940px">
 			<tr>
 				<td class="left" width="110px">Datum:</td>
 				<td>'.convert_date($antwort['datum'], "d.m.Y - H:i").'</td>
@@ -46,7 +46,7 @@ if(!empty($anfrage)) {
 				<td>'.$antwort['supporter'].'</td>
 			</tr>
 			<tr>
-				<td class="left">Antwort:</td>
+				<td class="left" valign="top">Antwort:</td>
 				<td>'.nl2br($antwort['antwort']).'</td>
 			</tr>
 		</table>';

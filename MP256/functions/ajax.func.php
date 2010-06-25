@@ -35,11 +35,11 @@ function get_anfragen_liste($mitarbeiter_id, $status_id = 1) {
 		$result .=
 			'<td><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'">'.($anfragen[$i]['betreff']).'</a></td>';
 			if($status_id == 1){
-				$result .= '<td align="right"><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt=""></img></a></td>';
+				$result .= '<td align="right"><a href="#"><img src="media/images/eye-arrow.png" onclick="update_list(1, '.($anfragen[$i]['anfrage']).')" border=0 alt="" /></a></td>';
 			} elseif($status_id == 2) {
-				$result .= '<td align="right" width="20px"><img src="media/images/working.png" border=0 alt="" /></td>';
+				$result .= '<td align="right" width="20px"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'"><img src="media/images/working.png" border=0 alt="" /></a></td>';
 			} elseif($status_id == 3) {
-				$result .= '<td align="right" width="20px"><img src="media/images/done.png" border=0 alt="" /></td>';
+				$result .= '<td align="right" width="20px"><a href="index.php?site=anfrage&id='.$anfragen[$i]['anfrage'].'"><img src="media/images/done.png" border=0 alt="" /></a></td>';
 			}
 		$result .=
 		'</tr>';
@@ -130,7 +130,7 @@ function get_supporter_anfragen($mitarbeiter_id, $status_id = 2){
 		if($status_id == 2){
 			$result .= '<td align="right" width="20px"><a href="'.$php_self.'?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'"><img src="media/images/reply.png" border=0 alt="" /></a></td>';
 		} elseif($status_id == 3) {
-			$result .= '<td align="right" width="20px"><img src="media/images/done.png" border=0 alt="" /></td>';
+			$result .= '<td align="right" width="20px"><a href="'.$php_self.'?site=anfrage&id='.$anfragen[$i]['anfrage_nr'].'"><img src="media/images/done.png" border=0 alt="" /></a></td>';
 		}
 		$result .= '</tr>';
 	}
