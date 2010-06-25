@@ -1,0 +1,44 @@
+/* --------------------------------------------------------------------------------------------- */
+
+/* Formatierung der Links auf allen Seiten */
+a:link, a:visited, a:active, a:hover {
+	text-decoration: none;
+	color: #232a2b;
+}
+
+/* Formatierung der Links (aktiv & fokus) auf allen Seiten ohne Outline */
+a:active, a:focus {
+	outline: none;	
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/* Allgemeine Formatierungen und Anzeige der Seiten */
+body {
+	color: #000;
+	font-family: arial;
+	font-size: 0.8em;
+}
+
+#tabelle {
+	padding: 10px 0 10px 0;
+}
+
+#tabelle th {
+	border-bottom: 1px solid #969696;
+	padding: 3px 20px 3px 5px;
+	background-color: #CCCCCC;
+}
+
+#tabelle tr:nth-of-type(odd) {
+	background-color: #DEDEDE;
+}
+
+#tabelle tr:nth-of-type(even) {
+	background-color: #EBEBEB;
+}
+
+#tabelle td {
+	border-bottom: 1px solid #BFBFBF;
+	padding: 5px 20px 5px 5px;
+}
