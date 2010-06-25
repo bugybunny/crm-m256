@@ -1,4 +1,6 @@
 <?php
+require_once '../functions/util.func.php';
+
 $array = unserialize($_POST['anfragen']);
 
 $output = "<?xml version='1.0' encoding='ISO-8859-1' ?>\n";
@@ -23,17 +25,17 @@ function createTable($array) {
 	}
 	$return = "<table id=\"tabelle\" cellpadding=\"0\" cellspacing=\"0\" width=\"960px\">";
 	$return .= "<tr align=\"left\">";
-	$return .= "<th width='140px'>Datum</th>";
-	$return .= "<th width='150px'>Betreff</th>";
-	$return .= "<th width='150px'>Kunde</th>";
-	$return .= "<th width='150px'>Supporter</th>";
-	$return .= "<th width='150px'>Supportart</th>";
-	$return .= "<th width='80px'>Status</th></tr>";
+	$return .= "<th>Datum</th>";
+	$return .= "<th>Betreff</th>";
+	$return .= "<th>Kunde</th>";
+	$return .= "<th>Supporter</th>";
+	$return .= "<th>Supportart</th>";
+	$return .= "<th>Status</th></tr>";
 	
 	for ($i = 0; $i < count($array); $i++){
 //		Datum, Betreff, Kunde, Supporter, Supportart, Status
 		$return .= "<tr>";
-		$return .= "<td>".$array[$i]['datum']."</td>";
+		$return .= "<td>".convert_date($array[$i]['datum'], "d.m.Y - H:i")."</td>";
 		$return .= "<td>".$array[$i]['betreff']."</td>";
 		$return .= "<td>".$array[$i]['kunde']."</td>";
 		$return .= "<td>".$array[$i]['supporter']."</td>";
