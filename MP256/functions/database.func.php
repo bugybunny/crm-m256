@@ -346,6 +346,15 @@ function get_anfragenliste_support($benutzer_id, $status) {
 	return $array;
 }
 
+/**
+ * 
+ * 
+ * @param unknown_type $betreff
+ * @param unknown_type $kunde
+ * @param unknown_type $supporter
+ * @param unknown_type $supportart
+ * @param unknown_type $status
+ */
 function get_anfrageliste_auswertung ($betreff = null, $kunde = null, $supporter = null, $supportart = null, $status = null) {
 	$anfragen = array();
 

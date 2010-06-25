@@ -170,6 +170,16 @@ function keine_anfragen_meldung() {
 	return '<div id="meldung" style="margin-top: 10px">Keine Anfragen vorhanden</div>';
 }
 
+/**
+ * Liefert eine formatierte Tabelle mit Anfragen zurück
+ * Die Suche kann eingeschränkt werden
+ * 
+ * @param $betreff string Anfragenbetreff
+ * @param $kunde string Kundenname (Vor- und Nachname)
+ * @param $supporter string Supportername (Vor- und Nachname)
+ * @param $supportart int SupportartID, 0 = alle
+ * @param $status int StatusID, 0 = alle
+ */
 function get_anfrageliste ($betreff, $kunde, $supporter, $supportart, $status) {
 	$anfragen = get_anfrageliste_auswertung($betreff, $kunde, $supporter, $supportart, $status);
 	$result .= "<table id='tabelle' cellpadding='0' cellspacing='0' width='960px' style='padding-top: 0px'>";
