@@ -350,6 +350,7 @@ function get_anfrageliste_auswertung ($betreff = null, $kunde = null, $supporter
 	$anfragen = array();
 
 	$sql = "SELECT
+				a.datum,
 				a.anfrage_nr,
 				a.betreff,
 				a.problem,

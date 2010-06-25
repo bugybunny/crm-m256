@@ -1,5 +1,5 @@
 <?php
-$array = isset($_POST['anfragen']) ? unserialize($_REQUEST['anfragen']) : null;
+$array = unserialize($_POST['anfragen']);
 
 $output = "<?xml version='1.0' encoding='ISO-8859-1' ?>\n";
 $output .= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
@@ -29,7 +29,18 @@ function createTable($array) {
 	$return .= "<th width='160px'>Supporter</th>";
 	$return .= "<th width='160px'>Supportart</th>";
 	$return .= "<th width='80px'>Status</th></tr>";
-	for ($i = 0; $i < count($array); $i++){
+	
+	foreach($array as $anfrage) {
+		$return .= "<tr>";
+		$return .= "<td>".$anfrage['datum']."</td>";
+		$return .= "<td>".$anfrage['betreff']."</td>";
+		$return .= "<td>".$anfrage['kunde']."</td>";
+		$return .= "<td>".$anfrage['supporter']."</td>";
+		$return .= "<td>".$anfrage['supportart']."</td>";
+		$return .= "<td>".$anfrage['status']."</td></tr>";
+	}
+	
+	/*for ($i = 0; $i < count($array); $i++){
 //		Datum, Betreff, Kunde, Supporter, Supportart, Status
 		$return .= "<tr>";
 		$return .= "<td>".$array[$i]['datum']."</td>";
@@ -38,7 +49,7 @@ function createTable($array) {
 		$return .= "<td>".$array[$i]['supporter']."</td>";
 		$return .= "<td>".$array[$i]['supportart']."</td>";
 		$return .= "<td>".$array[$i]['status']."</td></tr>";
-	}
+	}*/
 	$return .= "</table>";
 	return $return;
 }

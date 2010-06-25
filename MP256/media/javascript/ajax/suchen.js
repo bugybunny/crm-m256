@@ -7,13 +7,14 @@ function handleSearch() {
 			alert("Fehler:" + req.status);
 		} else {
 			//Antwort des Servers
+			document.getElementById("auswertung_resultat")
 			document.getElementById("auswertung_resultat").innerHTML = req.responseText;
 		}
 		break;
 	}
 }
 
-function search(searchtype, searchvalue) {
+function search() {
 	try {
 		req = new XMLHttpRequest();
 	} catch (e) {
