@@ -59,7 +59,7 @@ $array = array(
 				"betreff" => "FUU6", 
 				"kunde" => "Alessio Romagnolo6",
 				"supporter" => "Alessandro Manoiero6",
-				"supportart" => "Reklamation", 
+				"supportart" => "Technische Unterstuetzung", 
 				"status" => "WORKING"),
 			);
 

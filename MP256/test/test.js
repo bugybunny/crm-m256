@@ -5,7 +5,6 @@ function handleTranslation() {
 			alert("Fehler:" + req.status);
 		} else {
 			fenster = window.open();
-//			alert(req.responseText);
 			fenster.document.write(req.responseText);
 			fenster.document.close();
 			fenster.focus();

@@ -20,6 +20,15 @@ body {
 	font-size: 0.8em;
 }
 
+#meldung {
+	color: #3D3D3D;
+	border: 1px solid #D9D9D9;
+	background-color: #F5F5F5;
+	padding: 10px 0px 10px 10px;
+	width: 500px;
+	margin-bottom: 10px;
+}
+
 #tabelle {
 	padding: 10px 0 10px 0;
 }
