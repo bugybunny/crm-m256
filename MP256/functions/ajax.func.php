@@ -172,20 +172,19 @@ function keine_anfragen_meldung() {
 
 function get_anfrageliste ($betreff, $kunde, $supporter, $supportart, $status) {
 	$anfragen = get_anfrageliste_auswertung($betreff, $kunde, $supporter, $supportart, $status);
-	$result .= "<table id='tabelle' cellpadding='0' cellspacing='0' width='960px'>";
+	$result .= "<table id='tabelle' cellpadding='0' cellspacing='0' width='960px' style='padding-top: 0px'>";
 	foreach($anfragen as $anfrage) {
 		$result .= "<tr>
-						<td width='125px'>$anfrage[betreff]</td>
-						<td width='125px'>$anfrage[kunde]</td>
-						<td width='125px'>$anfrage[supporter]</td>
-						<td width='125px'>$anfrage[supportart]</td>
-						<td width='125px'>$anfrage[status]</td>
+						<td width='345px'>$anfrage[betreff]</td>
+						<td width='160px'>$anfrage[kunde]</td>
+						<td width='160px'>$anfrage[supporter]</td>
+						<td width='207px'>$anfrage[supportart]</td>
+						<td width='123px'>$anfrage[status]</td>
 					</tr>";
 	}
 	$result .= "</table>";
 	$result .= "<input type='button' value='Druckansicht' onclick='print_list()'";
 	$result .= "<input id='anfragen' type='hidden' value='".serialize($anfragen)."' onclick='print_list()'";
-	
 	return $result;
 }
 ?>
